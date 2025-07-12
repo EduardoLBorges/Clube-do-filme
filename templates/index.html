@@ -6,8 +6,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
   <h1>🎬 Filme da Semana: 2001: Uma Odisseia no Espaço</h1>
+
+<div class="container">
+    <img src="https://m.media-amazon.com/images/S/pv-target-images/1e241d02d44a08f34d4e5480b652396a642d449a7ae3473da0d1bb466b2a2947.jpg" class="poster" alt="Poster">
+</div>
 
 <form method="post">
   <label>Seu nome:</label>
@@ -36,8 +41,13 @@
     <div class="avaliacao">
       <strong>{{ a[1] }}</strong> em {{ a[-1].strftime('%d/%m/%Y %H:%M') }}:
       <ul>
-        <li>🎞️ Roteiro: {{ a[2] }} | 🎭 Atuação: {{ a[3] }} | 🎬 Direção: {{ a[4] }}</li>
-        <li>📷 Fotografia: {{ a[5] }} | 🎶 Trilha: {{ a[6] }} | ✂️ Montagem: {{ a[7] }} | 💥 Impacto: {{ a[8] }}</li>
+        <li>🎞️ Roteiro: {{ a[2] }}</li>
+        <li>🎭 Atuação: {{ a[3] }}</li>
+        <li>🎬 Direção: {{ a[4] }}</li>
+        <li>📷 Fotografia: {{ a[5] }}</li>
+        <li>🎶 Trilha: {{ a[6] }}</li>
+        <li>✂️ Montagem: {{ a[7] }}</li>
+        <li>💥 Impacto: {{ a[8] }}</li>
       </ul>
       <p><em>{{ a[9] }}</em></p>
     </div>
