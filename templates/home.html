@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Clube do Filme</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <h1>🎥 Filmes da Semana</h1>
+
+  <ul>
+    {% for f in filmes %}
+      <li><a href="{{ url_for('filme', filme_id=f[0]) }}">{{ f[1] }}</a></li>
+    {% endfor %}
+  </ul>
+</body>
+</html>
