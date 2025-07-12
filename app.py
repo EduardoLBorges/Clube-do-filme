@@ -1,10 +1,6 @@
 from flask import Flask, render_template, request, redirect
 import psycopg2
 import os
-import datetime
-from dotenv import load_dotenv
-
-load_dotenv()  # Carrega as variáveis do .env
 
 app = Flask(__name__)
 
