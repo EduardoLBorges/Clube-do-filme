@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Clube do Filme</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <h1>Filme da Semana: Nome do Filme</h1>
+
+  <form method="post">
+    <input name="nome" placeholder="Seu nome" required><br>
+
+    {% for campo in ['roteiro', 'atuacao', 'direcao', 'fotografia', 'trilha', 'montagem', 'impacto'] %}
+      <label>{{ campo.capitalize() }}: 
+        <input type="number" name="{{ campo }}" min="1" max="5" required>
+      </label><br>
+    {% endfor %}
+
+    <textarea name="critica" placeholder="Escreva sua crítica..." required></textarea><br>
+    <button type="submit">Enviar Avaliação</button>
+  </form>
+
+  <hr>
+
+  <h2>Avaliações Recentes</h2>
+  {% for a in avaliacoes %}
+    <div class="avaliacao">
+      <strong>{{ a[1] }}</strong> em {{ a[-1] }}<br>
+      <ul>
+        <li>Roteiro: {{ a[2] }} | Atuação: {{ a[3] }} | Direção: {{ a[4] }}</li>
+        <li>Fotografia: {{ a[5] }} | Trilha: {{ a[6] }} | Montagem: {{ a[7] }} | Impacto: {{ a[8] }}</li>
+      </ul>
+      <p><em>{{ a[9] }}</em></p>
+    </div>
+  {% endfor %}
+</body>
+</html>
