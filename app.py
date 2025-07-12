@@ -1,16 +1,20 @@
 from flask import Flask, render_template, request, redirect
 import psycopg2
 import os
+import datetime
+from dotenv import load_dotenv
+
+load_dotenv()  # Carrega as variáveis do .env
 
 app = Flask(__name__)
 
 def get_connection():
     return psycopg2.connect(
-        host=os.environ['DB_HOST'],
-        dbname=os.environ['DB_NAME'],
-        user=os.environ['DB_USER'],
-        password=os.environ['DB_PASSWORD'],
-        port=os.environ['DB_PORT']
+        host=os.environ.get("DB_HOST", "localhost"),
+        dbname=os.environ.get("DB_NAME", "clube_filmes"),
+        user=os.environ.get("DB_USER", "postgres"),
+        password=os.environ.get("DB_PASSWORD", "senha"),
+        port=os.environ.get("DB_PORT", "5432")
     )
 
 @app.route('/', methods=['GET', 'POST'])
@@ -45,7 +49,6 @@ def index():
     cur.close()
     conn.close()
     return render_template('index.html', avaliacoes=avaliacoes)
-
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
