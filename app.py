@@ -29,10 +29,10 @@ def index():
         )
         conn = get_connection()
         cur = conn.cursor()
-        cur.execute(\"\"\"
+        cur.execute("""
             INSERT INTO avaliacoes (nome, roteiro, atuacao, direcao, fotografia, trilha, montagem, impacto, critica)
             VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)
-        \"\"\", dados)
+        """, dados)
         conn.commit()
         cur.close()
         conn.close()
@@ -40,7 +40,7 @@ def index():
 
     conn = get_connection()
     cur = conn.cursor()
-    cur.execute(\"SELECT * FROM avaliacoes ORDER BY data DESC\")
+    cur.execute("SELECT * FROM avaliacoes ORDER BY data DESC")
     avaliacoes = cur.fetchall()
     cur.close()
     conn.close()
