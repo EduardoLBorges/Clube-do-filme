@@ -10,7 +10,8 @@
 <body>
   <h1>🎬 Filme da Semana: {{ filme[0] }}</h1>
 
-  <div class="container">
+<div class="filme-grid">
+  <div class="poster-container">
     <img src="{{ filme[1] }}" class="poster" alt="Poster do Filme">
   </div>
 
@@ -35,6 +36,7 @@
 
     <button type="submit">Enviar Avaliação</button>
   </form>
+</div>
 
 <h2>Avaliações Recentes</h2>
 <div class="avaliacoes-grid">

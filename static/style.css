@@ -19,11 +19,44 @@ h1 {
   text-align: center;
 }
 
-.poster {
-    max-width: 50%;
-    height: auto;
-    padding-block: 20px;
+.filme-grid {
+  display: grid;
+  gap: 30px;
+  margin-bottom: 40px;
 }
+
+/* Alinha lado a lado em telas ≥ 768px */
+@media (min-width: 768px) {
+  .filme-grid {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+
+.poster-container {
+  display: flex;
+  justify-content: center;
+}
+
+.poster {
+  width: 100%;
+  max-width: 80%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Remover largura máxima do form (que impedia grid funcionar) */
+.avaliacao-form {
+  width: 100%;
+  max-width: none;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
 
 .container {
     display: flex;
@@ -33,12 +66,12 @@ h1 {
 .formulario {
   background: white;
   padding: 20px;
-  padding-top: 20px;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  margin-bottom: 40px;
-  max-width: 50%;
-  margin: 0 auto;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  font-size: 1.2rem;
 }
 
 .formulario input,
@@ -66,7 +99,7 @@ h1 {
   background-color: #1d3557;
 }
 
-/* Container para a grade de avaliações */
+/* GRID ADAPTATIVO de avaliações */
 .avaliacoes-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -74,7 +107,7 @@ h1 {
   margin-top: 20px;
 }
 
-/* Estilo individual de cada avaliação */
+/* Cada avaliação como um cartão */
 .avaliacao {
   background: #fff;
   padding: 15px 20px;
@@ -82,14 +115,12 @@ h1 {
   border-radius: 8px;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
   position: relative;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  min-width: 0;
 }
 
-.avaliacao strong {
-  font-size: 1.1rem;
-  color: #1d3557;
-}
-
-/* Botão de excluir no canto superior direito */
+/* Botão excluir discreto */
 .btn-excluir {
   position: absolute;
   top: 10px;
@@ -102,6 +133,13 @@ h1 {
 }
 .btn-excluir:hover {
   color: red;
+}
+
+/* Garante que texto da crítica quebre corretamente */
+.avaliacao p {
+  margin-top: 10px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 ul {
@@ -127,10 +165,6 @@ footer {
 
 .estrelas {
   display: inline-block;
-}
-
-.estrela {
-  font-size: 24px;
   color: #ccc;
   cursor: pointer;
   transition: 0.2s;
