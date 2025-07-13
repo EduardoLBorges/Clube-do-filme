@@ -157,6 +157,9 @@ footer {
 
 .estrelas-box {
   margin: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  vertical-align: middle;
 }
 
 .estrelas {
@@ -164,15 +167,22 @@ footer {
   color: #ccc;
   cursor: pointer;
   transition: 0.2s;
+  font-size: 1.5rem;
 }
 
 .estrela.ativa {
   color: #f5b301;
 }
 
-.filmes-grid {
+/* Tela inicial */
+
+.filme-semana{
+  text-align: center;
+}
+
+.filmes-grid-home {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(30px, 1fr));
   gap: 20px;
   margin-top: 30px;
 }
@@ -185,6 +195,7 @@ footer {
   text-align: center;
   position: relative;
   transition: transform 0.3s;
+  width: fit-content;
 }
 
 .filme-item:hover {
@@ -195,7 +206,7 @@ footer {
   width: auto;
   height: auto;
   border-bottom: 1px solid #eee;
-  max-height: 500px;
+  max-height: 150px;
   max-width: auto;
 }
 

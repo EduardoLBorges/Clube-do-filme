@@ -8,19 +8,25 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <h1>🎥 Filmes da Semana</h1>
+  <h1>🎬 Filme da Semana:</h1>
+  <h1>{{ filme[1] }}</h1>
+  <div class="filme-semana">
+    <a href="{{ url_for('filme', filme_id=filme[0]) }}">
+      <img src="{{ filme[2] }}" class="poster" alt="{{ filme[1] }}">
+    </a>
+    <div class="titulo">{{ filme[1] }}</div>
+  </div>
 
-    <div class="filmes-grid">
-      {% for f in filmes %}
-        <div class="filme-item">
-          <div class="numero">{{ loop.index }}</div>
-          <a href="{{ url_for('filme', filme_id=f[0]) }}">
-            <img src="{{ f[2] }}" alt="{{ f[1] }}">
-            <div class="titulo">{{ f[1] }}</div>
-          </a>
-        </div>
-      {% endfor %}
-    </div>
+  <div class="filmes-grid-home">
+    {% for f in filmes %}
+      <div class="filme-item">
+        <div class="numero">{{ loop.index }}</div>
+        <a href="{{ url_for('filme', filme_id=f[0]) }}">
+          <img src="{{ f[2] }}" alt="{{ f[1] }}">
+        </a>
+      </div>
+    {% endfor %}
+  </div>
 
 </body>
 </html>

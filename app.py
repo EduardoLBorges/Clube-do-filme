@@ -17,11 +17,23 @@ def get_connection():
 def home():
     conn = get_connection()
     cur = conn.cursor()
+
+    # Busca o ID do filme da semana a partir da tabela config
+    cur.execute("SELECT filme_da_semana_id FROM config LIMIT 1")
+    resultado = cur.fetchone()
+    filme_id = resultado[0] if resultado else 1  # fallback para 1 caso não haja resultado
+
+    # Busca os dados do filme da semana
+    cur.execute("SELECT id, titulo, imagem_url FROM filmes WHERE id = %s", (filme_id,))
+    filme = cur.fetchone()
+
+    # Busca a lista de todos os filmes
     cur.execute("SELECT id, titulo, imagem_url FROM filmes")
     filmes = cur.fetchall()
+
     cur.close()
     conn.close()
-    return render_template('home.html', filmes=filmes)
+    return render_template('home.html', filmes=filmes, filme=filme)
 
 @app.route('/filme/<int:filme_id>', methods=['GET', 'POST'])
 def filme(filme_id):
