@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Avaliar – {{ filme[0] }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <h1>Avaliar: {{ filme[0] }}</h1>
+
+  <div class="filme-grid">
+    <div class="poster-container">
+      <img src="{{ filme[1] }}" class="poster" alt="Poster do Filme">
+    </div>
+
+    <form class="formulario" method="post">
+      <label>Seu nome:</label>
+      <input name="nome" placeholder="Digite seu nome" required>
+
+      {% for campo in ['roteiro', 'atuacao', 'direcao', 'fotografia', 'trilha', 'montagem', 'impacto'] %}
+        <div class="estrelas-box">
+          <label>{{ campo.capitalize() }}:</label>
+          <div class="estrelas" data-name="{{ campo }}">
+            {% for i in range(1, 6) %}
+              <span class="estrela" data-value="{{ i }}">&#9733;</span>
+            {% endfor %}
+          </div>
+          <input type="hidden" name="{{ campo }}" required>
+        </div>
+      {% endfor %}
+
+      <label>Crítica:</label>
+      <textarea name="critica" placeholder="Escreva sua opinião..." required></textarea>
+
+      <label>Nota Total (1 a 10):</label>
+      <div class="estrelas-total">
+        {% for i in range(1, 11) %}
+          <span class="estrela" data-value="{{ i }}">&#9733;</span>
+        {% endfor %}
+        <input type="hidden" name="total" required>
+      </div>
+
+      <br>
+      <button type="submit">Enviar Avaliação</button>
+    </form>
+  </div>
+
+  <p>
+    <a href="{{ url_for('home') }}">← Voltar</a>
+    <a href="{{ url_for('avaliacoes', filme_id=filme_id) }}">→ Ver Avaliações</a>
+  </p>
+
+  <script>
+    document.querySelectorAll('.estrelas').forEach(box => {
+      const estrelas = box.querySelectorAll('.estrela');
+      const hidden = box.nextElementSibling;
+
+      estrelas.forEach(estrela => {
+        estrela.addEventListener('click', () => {
+          const val = parseInt(estrela.dataset.value);
+          hidden.value = val;
+          estrelas.forEach(e => {
+            e.classList.toggle('ativa', parseInt(e.dataset.value) <= val);
+          });
+        });
+      });
+    });
+  </script>
+</body>
+</html>

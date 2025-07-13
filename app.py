@@ -87,10 +87,14 @@ def config():
     return render_template('config.html', filmes=filmes, filme_atual=filme_atual)
 
 
-@app.route('/filme/<int:filme_id>', methods=['GET', 'POST'])
-def filme(filme_id):
+@app.route('/avaliar/<int:filme_id>', methods=['GET', 'POST'])
+def avaliar(filme_id):
     conn = get_connection()
     cur = conn.cursor()
+
+    # Busca dados do filme
+    cur.execute("SELECT titulo, imagem_url FROM filmes WHERE id = %s", (filme_id,))
+    filme = cur.fetchone()
 
     if request.method == 'POST':
         dados = (
@@ -108,12 +112,22 @@ def filme(filme_id):
         )
         cur.execute("""
             INSERT INTO avaliacoes (nome, roteiro, atuacao, direcao, fotografia, trilha, montagem, impacto, critica, total, filme_id)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
         """, dados)
         conn.commit()
-        return redirect(url_for('filme', filme_id=filme_id))
+        cur.close()
+        conn.close()
+        return redirect(url_for('avaliacoes', filme_id=filme_id))
 
-    # Obter dados do filme e suas avaliações
+    cur.close()
+    conn.close()
+    return render_template('avaliar.html', filme=filme, filme_id=filme_id)
+
+@app.route('/avaliacoes/<int:filme_id>')
+def avaliacoes(filme_id):
+    conn = get_connection()
+    cur = conn.cursor()
+
     cur.execute("SELECT titulo, imagem_url FROM filmes WHERE id = %s", (filme_id,))
     filme = cur.fetchone()
 
@@ -122,7 +136,7 @@ def filme(filme_id):
 
     cur.close()
     conn.close()
-    return render_template('filme.html', filme=filme, avaliacoes=avaliacoes, filme_id=filme_id)
+    return render_template('avaliacoes.html', filme=filme, avaliacoes=avaliacoes, filme_id=filme_id)
 
 @app.route('/excluir/<int:id>', methods=['POST'])
 def excluir(id):
