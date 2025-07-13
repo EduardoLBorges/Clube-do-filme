@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Configuração</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="config-page">
+    <h1>🔐 Acesso Restrito</h1>
+
+    {% with messages = get_flashed_messages(category_filter=["erro"]) %}
+      {% if messages %}
+        <p style="color: red;">{{ messages[0] }}</p>
+      {% endif %}
+    {% endwith %}
+
+    <form method="post" class="config-form">
+      <label for="senha">Digite a senha:</label>
+      <input type="password" name="senha" required>
+      <button type="submit">Entrar</button>
+    </form>
+
+    <a href="{{ url_for('home') }}">← Voltar</a>
+  </div>
+</body>
+</html>

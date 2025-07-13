@@ -37,8 +37,14 @@
 
     <label>Crítica:</label>
     <textarea name="critica" placeholder="Escreva sua opinião..." required></textarea>
-
-    <button type="submit">Enviar Avaliação</button>
+        <div class="estrelas-total" data-name="{{ total }}">
+          {% for i in range(1, 11) %}
+            <span class="estrela" data-value="{{ i }}">&#9733;</span>
+          {% endfor %}
+          <input type="hidden" name="{{ total }}" required>
+        </div>
+        <br>
+        <button type="submit">Enviar Avaliação</button>
   </form>
 </div>
 
@@ -46,7 +52,7 @@
 <div class="avaliacoes-grid">
   {% for a in avaliacoes %}
     <div class="avaliacao">
-      <strong>{{ a[1] }}</strong> em {{ a[-2].strftime('%d/%m/%Y %H:%M') }}:
+      <strong>{{ a[1] }}</strong> em {{ a[10].strftime('%d/%m/%Y %H:%M') }}:
       <form id="cx-excluir" method="post" action="{{ url_for('excluir', id=a[0]) }}" onsubmit="return confirm('Tem certeza que deseja excluir esta avaliação?')">
         <button class="btn-excluir">🗑️</button>
       </form>
@@ -58,6 +64,7 @@
         <li>🎶 Trilha: {{ a[6] }}</li>
         <li>✂️ Montagem: {{ a[7] }}</li>
         <li>💥 Impacto: {{ a[8] }}</li>
+        <li>💥 Total: {{ a[12] }}</li>
       </ul>
       <p><em>{{ a[9] }}</em></p>
     </div>

@@ -1,8 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for
 import psycopg2
 import os
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 
 app = Flask(__name__)
+app.secret_key = 'chave_secreta_segura' 
+
 
 def get_connection():
     return psycopg2.connect(
@@ -40,6 +42,25 @@ def config():
     conn = get_connection()
     cur = conn.cursor()
 
+    # Verifica se usuário já está autenticado
+    if not session.get('autenticado'):
+        if request.method == 'POST' and 'senha' in request.form:
+            senha_digitada = request.form['senha']
+            cur.execute("SELECT senha_config FROM config LIMIT 1")
+            resultado = cur.fetchone()
+            senha_correta = resultado[0] if resultado else None
+
+            if senha_digitada == senha_correta:
+                session['autenticado'] = True
+                return redirect(url_for('config'))
+            else:
+                flash("Senha incorreta.", "erro")
+
+        cur.close()
+        conn.close()
+        return render_template('login_config.html')
+
+    # Processa formulários após login
     if request.method == 'POST':
         # Inserir novo filme
         if 'titulo' in request.form and 'imagem_url' in request.form:
@@ -54,11 +75,9 @@ def config():
             cur.execute("UPDATE config SET filme_da_semana_id = %s", (novo_id,))
             conn.commit()
 
-    # Buscar todos os filmes cadastrados
+    # Busca dados para o formulário
     cur.execute("SELECT id, titulo FROM filmes ORDER BY id DESC")
     filmes = cur.fetchall()
-
-    # Buscar o atual filme da semana
     cur.execute("SELECT filme_da_semana_id FROM config LIMIT 1")
     resultado = cur.fetchone()
     filme_atual = resultado[0] if resultado else None
@@ -84,10 +103,11 @@ def filme(filme_id):
             int(request.form['montagem']),
             int(request.form['impacto']),
             request.form['critica'],
+            int(request.form['total']),
             filme_id
         )
         cur.execute("""
-            INSERT INTO avaliacoes (nome, roteiro, atuacao, direcao, fotografia, trilha, montagem, impacto, critica, filme_id)
+            INSERT INTO avaliacoes (nome, roteiro, atuacao, direcao, fotografia, trilha, montagem, impacto, critica, total, filme_id)
             VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
         """, dados)
         conn.commit()
