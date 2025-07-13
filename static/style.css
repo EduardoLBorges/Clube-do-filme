@@ -122,6 +122,10 @@ h1 {
   min-width: 0;
 }
 
+.nota-total{
+  text-align: center;
+}
+
 /* Botão excluir discreto */
 .btn-excluir {
   position: absolute;
