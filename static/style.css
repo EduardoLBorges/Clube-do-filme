@@ -39,9 +39,10 @@ h1 {
 }
 
 .poster {
-  width: 100%;
+  width: auto;
   max-width: 80%;
   height: auto;
+  max-height: 500px;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
@@ -51,6 +52,7 @@ h1 {
 .avaliacao-form {
   width: 100%;
   max-width: none;
+  max-height: 500px;
   background: white;
   padding: 20px;
   border-radius: 12px;
