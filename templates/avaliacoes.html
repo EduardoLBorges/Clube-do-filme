@@ -32,6 +32,10 @@
     {% endfor %}
   </div>
 
+    <div class="poster-container", style="margin-top: 20px;">
+      <img src="{{ filme[1] }}" class="poster" alt="Poster do Filme">
+    </div>
+
   <p>
     <a href="{{ url_for('home') }}">← Voltar</a>
     <a href="{{ url_for('avaliar', filme_id=filme_id) }}">← Voltar ao Formulário</a>
