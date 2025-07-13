@@ -35,6 +35,39 @@ def home():
     conn.close()
     return render_template('home.html', filmes=filmes, filme=filme)
 
+@app.route('/config', methods=['GET', 'POST'])
+def config():
+    conn = get_connection()
+    cur = conn.cursor()
+
+    if request.method == 'POST':
+        # Inserir novo filme
+        if 'titulo' in request.form and 'imagem_url' in request.form:
+            titulo = request.form['titulo']
+            imagem_url = request.form['imagem_url']
+            cur.execute("INSERT INTO filmes (titulo, imagem_url) VALUES (%s, %s)", (titulo, imagem_url))
+            conn.commit()
+
+        # Atualizar o filme da semana
+        if 'filme_da_semana_id' in request.form:
+            novo_id = int(request.form['filme_da_semana_id'])
+            cur.execute("UPDATE config SET filme_da_semana_id = %s", (novo_id,))
+            conn.commit()
+
+    # Buscar todos os filmes cadastrados
+    cur.execute("SELECT id, titulo FROM filmes ORDER BY id DESC")
+    filmes = cur.fetchall()
+
+    # Buscar o atual filme da semana
+    cur.execute("SELECT filme_da_semana_id FROM config LIMIT 1")
+    resultado = cur.fetchone()
+    filme_atual = resultado[0] if resultado else None
+
+    cur.close()
+    conn.close()
+    return render_template('config.html', filmes=filmes, filme_atual=filme_atual)
+
+
 @app.route('/filme/<int:filme_id>', methods=['GET', 'POST'])
 def filme(filme_id):
     conn = get_connection()

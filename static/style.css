@@ -227,3 +227,79 @@ footer {
   padding: 4px 8px;
   border-radius: 5px;
 }
+
+/* Pagina de configurações */
+
+.config-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.config-page h1 {
+  font-size: 2rem;
+  color: #1d3557;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.config-page h2 {
+  font-size: 1.3rem;
+  color: #457b9d;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
+}
+
+.config-form {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  margin-bottom: 30px;
+}
+
+.config-form label {
+  display: block;
+  margin-top: 10px;
+  font-weight: 600;
+  color: #333;
+}
+
+.config-form input,
+.config-form select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-top: 5px;
+}
+
+.config-form button {
+  background-color: #457b9d;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: 0.3s;
+  font-weight: bold;
+}
+
+.config-form button:hover {
+  background-color: #1d3557;
+}
+
+.config-page a {
+  display: inline-block;
+  margin-top: 20px;
+  text-decoration: none;
+  color: #457b9d;
+  font-weight: 600;
+}
+
+.config-page a:hover {
+  text-decoration: underline;
+}

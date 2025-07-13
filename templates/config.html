@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Configurações – Clube do Filme</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="config-page">
+    <h1>⚙️ Configurações</h1>
+
+    <h2>🎬 Cadastrar novo filme</h2>
+    <form method="post" class="config-form">
+      <label for="titulo">Título:</label>
+      <input type="text" name="titulo" required>
+
+      <label for="imagem_url">URL da imagem:</label>
+      <input type="url" name="imagem_url" required>
+
+      <button type="submit">Adicionar Filme</button>
+    </form>
+
+    <h2>🎞️ Definir Filme da Semana</h2>
+    <form method="post" class="config-form">
+      <label for="filme_da_semana_id">Escolha um filme:</label>
+      <select name="filme_da_semana_id" required>
+        {% for f in filmes %}
+          <option value="{{ f[0] }}" {% if f[0] == filme_atual %}selected{% endif %}>
+            {{ f[1] }}
+          </option>
+        {% endfor %}
+      </select>
+      <button type="submit">Atualizar Filme da Semana</button>
+    </form>
+
+    <a href="{{ url_for('home') }}">← Voltar</a>
+  </div>
+</body>
+</html>
