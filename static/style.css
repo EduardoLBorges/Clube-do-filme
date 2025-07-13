@@ -180,9 +180,21 @@ footer {
   text-align: center;
 }
 
+.titulo{
+  background:#457b9d;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  box-sizing: content-box;
+  padding: 5px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
 .filmes-grid-home {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(30px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   gap: 20px;
   margin-top: 30px;
 }
@@ -195,7 +207,8 @@ footer {
   text-align: center;
   position: relative;
   transition: transform 0.3s;
-  width: fit-content;
+  width:fit-content;
+  height: 150px;
 }
 
 .filme-item:hover {
@@ -204,10 +217,9 @@ footer {
 
 .filme-item img {
   width: auto;
-  height: auto;
+  height: 150px;
   border-bottom: 1px solid #eee;
-  max-height: 150px;
-  max-width: auto;
+  max-width: 95px;
 }
 
 .filme-item .titulo {
