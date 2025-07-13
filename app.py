@@ -17,7 +17,7 @@ def get_connection():
 def home():
     conn = get_connection()
     cur = conn.cursor()
-    cur.execute("SELECT id, titulo FROM filmes ORDER BY data_postagem DESC")
+    cur.execute("SELECT id, titulo, imagem_url FROM filmes")
     filmes = cur.fetchall()
     cur.close()
     conn.close()
