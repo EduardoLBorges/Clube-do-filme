@@ -328,3 +328,16 @@ footer {
 .config-page a:hover {
   text-decoration: underline;
 }
+
+/* Footer */
+
+.nav-button{
+  background-color: #457b9d;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: bold;
+}

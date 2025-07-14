@@ -48,11 +48,6 @@
     </form>
   </div>
 
-  <p>
-    <a href="{{ url_for('home') }}">← Voltar</a>
-    <a href="{{ url_for('avaliacoes', filme_id=filme_id) }}">→ Ver Avaliações</a>
-  </p>
-
   <script>
     document.querySelectorAll('.estrelas').forEach(box => {
       const estrelas = box.querySelectorAll('.estrela');
@@ -70,4 +65,10 @@
     });
   </script>
 </body>
+<footer>
+  <p style="justify-content: space-between; display: flex;">
+    <a class="nav-button" href="{{ url_for('home') }}">← Voltar</a>
+    <a class="nav-button" href="{{ url_for('avaliacoes', filme_id=filme_id) }}">Ver Avaliações →</a>
+  </p>
+</footer>
 </html>
