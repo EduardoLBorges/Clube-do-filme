@@ -377,3 +377,52 @@ textarea {
 .nav-button:hover {
   background-color: #1d3557;
 }
+
+/* tooltips de avaliações */
+.info-tooltip {
+  position: relative;
+  display: inline-block;
+  margin-left: 6px;
+  color: #457b9d;
+  cursor: help;
+  font-weight: bold;
+  font-size: 1rem;
+  user-select: none;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  width: 260px;
+  background-color: #333;
+  color: #fff;
+  text-align: left;
+  border-radius: 6px;
+  padding: 8px 10px;
+  position: absolute;
+  z-index: 100;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -130px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 0.9rem;
+  line-height: 1.3;
+  pointer-events: none; /* evita que atrapalhe o hover */
+}
+
+.info-tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.tooltip-text::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -6px;
+  border-width: 6px;
+  border-style: solid;
+  border-color: #333 transparent transparent transparent;
+}
