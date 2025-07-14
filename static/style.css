@@ -22,7 +22,6 @@ main {
 
 footer {
   padding: 20px;
-  text-align: center;
   background: #f1f1f1;
   color: #888;
   font-size: 0.9rem;
@@ -166,13 +165,6 @@ h1 {
 
 textarea {
   resize: vertical;
-}
-
-footer {
-  margin-top: 50px;
-  text-align: center;
-  color: #888;
-  font-size: 0.9rem;
 }
 
 .estrelas-box {
