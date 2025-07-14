@@ -5,7 +5,7 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 app = Flask(__name__)
 app.secret_key = 'chave_secreta_segura' 
 
-
+# Conexão com o banco de dados
 def get_connection():
     return psycopg2.connect(
         host=os.environ.get("DB_HOST", "localhost"),
@@ -15,6 +15,7 @@ def get_connection():
         port=os.environ.get("DB_PORT", "5432")
     )
 
+# Rora da pagina inicial
 @app.route('/')
 def home():
     conn = get_connection()
@@ -37,6 +38,7 @@ def home():
     conn.close()
     return render_template('home.html', filmes=filmes, filme=filme)
 
+# Rota da pagina de configurações
 @app.route('/config', methods=['GET', 'POST'])
 def config():
     conn = get_connection()
@@ -86,51 +88,69 @@ def config():
     conn.close()
     return render_template('config.html', filmes=filmes, filme_atual=filme_atual)
 
-
 @app.route('/avaliar/<int:filme_id>', methods=['GET', 'POST'])
 def avaliar(filme_id):
     conn = get_connection()
     cur = conn.cursor()
 
-    # Busca dados do filme
+    # Dados do filme
     cur.execute("SELECT titulo, imagem_url FROM filmes WHERE id = %s", (filme_id,))
     filme = cur.fetchone()
 
+    erro = None
+    dados = {}
+
     if request.method == 'POST':
-        dados = (
-            request.form['nome'],
-            int(request.form['roteiro']),
-            int(request.form['atuacao']),
-            int(request.form['direcao']),
-            int(request.form['fotografia']),
-            int(request.form['trilha']),
-            int(request.form['montagem']),
-            int(request.form['impacto']),
-            request.form['critica'],
-            int(request.form['total']),
-            filme_id
-        )
-        cur.execute("""
-            INSERT INTO avaliacoes (nome, roteiro, atuacao, direcao, fotografia, trilha, montagem, impacto, critica, total, filme_id)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-        """, dados)
-        conn.commit()
-        cur.close()
-        conn.close()
-        return redirect(url_for('avaliacoes', filme_id=filme_id))
+        campos = ['nome', 'roteiro', 'atuacao', 'direcao', 'fotografia', 'trilha', 'montagem', 'impacto', 'critica', 'total']
+        try:
+            for campo in campos:
+                valor = request.form.get(campo, "").strip()
+                if not valor:
+                    raise ValueError(f"Campo '{campo}' obrigatório.")
+                dados[campo] = valor
+
+            # Verifica notas
+            for campo in ['roteiro', 'atuacao', 'direcao', 'fotografia', 'trilha', 'montagem', 'impacto']:
+                dados[campo] = int(dados[campo])
+                if dados[campo] < 1 or dados[campo] > 5:
+                    raise ValueError(f"A nota de {campo} deve ser entre 1 e 5.")
+
+            dados['total'] = int(dados['total'])
+            if dados['total'] < 1 or dados['total'] > 10:
+                raise ValueError("A nota total deve ser entre 1 e 10.")
+
+            cur.execute("""
+                INSERT INTO avaliacoes 
+                (nome, roteiro, atuacao, direcao, fotografia, trilha, montagem, impacto, critica, total, filme_id)
+                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+            """, (
+                dados['nome'], dados['roteiro'], dados['atuacao'], dados['direcao'],
+                dados['fotografia'], dados['trilha'], dados['montagem'], dados['impacto'],
+                dados['critica'], dados['total'], filme_id
+            ))
+            conn.commit()
+            cur.close()
+            conn.close()
+            return redirect(url_for('avaliacoes', filme_id=filme_id))
+
+        except Exception as e:
+            erro = str(e)
 
     cur.close()
     conn.close()
-    return render_template('avaliar.html', filme=filme, filme_id=filme_id)
+    return render_template('avaliar.html', filme=filme, filme_id=filme_id, erro=erro, dados=dados)
 
+# Rota da pagina de avaliações
 @app.route('/avaliacoes/<int:filme_id>')
 def avaliacoes(filme_id):
     conn = get_connection()
     cur = conn.cursor()
 
+    # Busca os dados para o poster
     cur.execute("SELECT titulo, imagem_url FROM filmes WHERE id = %s", (filme_id,))
     filme = cur.fetchone()
 
+    # Busca os dados de avaliações do filme
     cur.execute("SELECT * FROM avaliacoes WHERE filme_id = %s ORDER BY data DESC", (filme_id,))
     avaliacoes = cur.fetchall()
 
@@ -138,6 +158,7 @@ def avaliacoes(filme_id):
     conn.close()
     return render_template('avaliacoes.html', filme=filme, avaliacoes=avaliacoes, filme_id=filme_id)
 
+# Rota para o botão de excluir avaliação
 @app.route('/excluir/<int:id>', methods=['POST'])
 def excluir(id):
     conn = get_connection()
@@ -148,6 +169,7 @@ def excluir(id):
     conn.close()
     return redirect(request.referrer or '/')
 
+# Iniciar aplicação
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)

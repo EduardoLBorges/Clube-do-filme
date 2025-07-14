@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
   <h1>🎬 Filme da Semana:</h1>
   <div class="filme-semana">
@@ -18,14 +20,15 @@
 
   <div class="filmes-grid-home">
     {% for f in filmes %}
-      <div class="filme-item">
-        <div class="numero">{{ loop.index }}</div>
-        <a href="{{ url_for('avaliacoes', filme_id=f[0]) }}">
-          <img src="{{ f[2] }}" alt="{{ f[1] }}">
-        </a>
-      </div>
+    <div class="filme-item">
+      <div class="numero">{{ loop.index }}</div>
+      <a href="{{ url_for('avaliacoes', filme_id=f[0]) }}">
+        <img src="{{ f[2] }}" alt="{{ f[1] }}">
+      </a>
+    </div>
     {% endfor %}
   </div>
 
 </body>
+
 </html>

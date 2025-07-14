@@ -5,7 +5,8 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
   display: flex;
@@ -76,8 +77,8 @@ h1 {
 
 
 .container {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .formulario {
@@ -137,7 +138,7 @@ h1 {
   min-width: 0;
 }
 
-.nota-total{
+.nota-total {
   text-align: center;
 }
 
@@ -152,6 +153,7 @@ h1 {
   cursor: pointer;
   font-size: 0.9rem;
 }
+
 .btn-excluir:hover {
   color: red;
 }
@@ -197,15 +199,15 @@ textarea {
 
 /* Tela inicial */
 
-.filme-semana{
+.filme-semana {
   text-align: center;
 }
 
-.titulo{
-  background:#457b9d;
+.titulo {
+  background: #457b9d;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   box-sizing: content-box;
   padding: 5px;
   font-size: 1.5rem;
@@ -223,12 +225,12 @@ textarea {
 .filme-item {
   background: white;
   border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   overflow: hidden;
   text-align: center;
   position: relative;
   transition: transform 0.3s;
-  width:fit-content;
+  width: fit-content;
   height: 150px;
 }
 
@@ -289,7 +291,7 @@ textarea {
   background: white;
   padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
   margin-bottom: 30px;
 }
 
@@ -339,7 +341,7 @@ textarea {
 
 /* Footer */
 
-.nav-button{
+.nav-button {
   background-color: #457b9d;
   color: white;
   border: none;

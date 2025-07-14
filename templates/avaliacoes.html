@@ -1,48 +1,52 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Avaliações – {{ filme[0] }}</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avaliações – {{ filme[0] }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
-  <main>
-    <h1>Avaliações de: {{ filme[0] }}</h1>
+    <main>
+        <h1>Avaliações de: {{ filme[0] }}</h1>
 
-    <div class="avaliacoes-grid">
-      {% for a in avaliacoes %}
-        <div class="avaliacao">
-          <strong>{{ a[1] }}</strong> em {{ a[10].strftime('%d/%m/%Y %H:%M') }}:
-          <form method="post" action="{{ url_for('excluir', id=a[0]) }}" onsubmit="return confirm('Excluir esta avaliação?')">
-            <button class="btn-excluir">🗑️</button>
-          </form>
-          <ul>
-            <li>🎞️ Roteiro: {{ a[2] }}</li>
-            <li>🎭 Atuação: {{ a[3] }}</li>
-            <li>🎬 Direção: {{ a[4] }}</li>
-            <li>📷 Fotografia: {{ a[5] }}</li>
-            <li>🎶 Trilha: {{ a[6] }}</li>
-            <li>✂️ Montagem: {{ a[7] }}</li>
-            <li>💥 Impacto: {{ a[8] }}</li>
-            <li>⭐ Total: {{ a[12] }}</li>
-          </ul>
-          <p><em>{{ a[9] }}</em></p>
+        <div class="avaliacoes-grid">
+            {% for a in avaliacoes %}
+            <div class="avaliacao">
+                <strong>{{ a[1] }}</strong> em {{ a[10].strftime('%d/%m/%Y %H:%M') }}:
+                <form method="post" action="{{ url_for('excluir', id=a[0]) }}"
+                    onsubmit="return confirm('Excluir esta avaliação?')">
+                    <button class="btn-excluir">🗑️</button>
+                </form>
+                <ul>
+                    <li>🎞️ Roteiro: {{ a[2] }}</li>
+                    <li>🎭 Atuação: {{ a[3] }}</li>
+                    <li>🎬 Direção: {{ a[4] }}</li>
+                    <li>📷 Fotografia: {{ a[5] }}</li>
+                    <li>🎶 Trilha: {{ a[6] }}</li>
+                    <li>✂️ Montagem: {{ a[7] }}</li>
+                    <li>💥 Impacto: {{ a[8] }}</li>
+                    <li>⭐ Total: {{ a[12] }}</li>
+                </ul>
+                <p><em>{{ a[9] }}</em></p>
+            </div>
+            {% endfor %}
         </div>
-      {% endfor %}
-    </div>
 
-    <div class="poster-container" style="margin-top: 20px;">
-      <img src="{{ filme[1] }}" class="poster" alt="Poster do Filme">
-    </div>
-  </main>
+        <div class="poster-container" style="margin-top: 20px;">
+            <img src="{{ filme[1] }}" class="poster" alt="Poster do Filme">
+        </div>
+    </main>
 
-  <footer>
-    <p style="justify-content: space-between;">
-      <a class="nav-button" href="{{ url_for('home') }}">← Voltar</a>
-      <a class="nav-button" href="{{ url_for('avaliar', filme_id=filme_id) }}">← Voltar ao Formulário</a>
-    </p>
-  </footer>
+    <footer>
+        <p style="justify-content: space-between;">
+            <a class="nav-button" href="{{ url_for('home') }}">← Voltar</a>
+            <a class="nav-button" href="{{ url_for('avaliar', filme_id=filme_id) }}">← Voltar ao Formulário</a>
+        </p>
+    </footer>
 </body>
+
 </html>
