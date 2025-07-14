@@ -2,11 +2,11 @@
 <html lang="pt-br">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Avaliar – {{ filme[0] }}</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
 </head>
 
 <body>
@@ -15,51 +15,43 @@
 
     <div class="filme-grid">
       <div class="poster-container">
-        <img src="{{ filme[1] }}" class="poster" alt="Poster do Filme">
+        <img src="{{ filme[1] }}" class="poster" alt="Poster do Filme" />
       </div>
 
-      <form class="formulario" method="post">
-        {% if erro %}
-        <div style="color: red; margin-bottom: 10px; font-size: 0.9rem;" title="{{ erro }}">
-          ⚠️ {{ erro }}
-        </div>
-        {% endif %}
-
+      <form class="formulario" method="post" id="form-avaliar">
         <label>Seu nome:</label>
-        <input name="nome" placeholder="Digite seu nome" value="{{ dados.nome if dados and 'nome' in dados else '' }}"
-          required>
+        <input name="nome" placeholder="Digite seu nome" required />
 
         {% for campo in ['roteiro', 'atuacao', 'direcao', 'fotografia', 'trilha', 'montagem', 'impacto'] %}
         <div class="estrelas-box">
-          <label>{{ campo.capitalize() }}:</label>
+          <label for="campo-{{ campo }}">{{ campo.capitalize() }}
+            <span class="erro-asterisco" id="erro-asterisco-{{ campo }}">*</span>
+          </label>
           <div class="estrelas" data-name="{{ campo }}">
             {% for i in range(1, 6) %}
-            <span class="estrela {% if dados and campo in dados and i <= dados[campo]|int %}ativa{% endif %}"
-              data-value="{{ i }}">&#9733;</span>
+            <span class="estrela" data-value="{{ i }}">&#9733;</span>
             {% endfor %}
           </div>
-          <input type="hidden" name="{{ campo }}" value="{{ dados[campo] if dados and campo in dados else '' }}"
-            required>
+          <input type="hidden" name="{{ campo }}" id="campo-{{ campo }}" />
         </div>
         {% endfor %}
 
         <label>Crítica:</label>
-        <textarea name="critica" placeholder="Escreva sua opinião..."
-          required>{{ dados.critica if dados and 'critica' in dados else '' }}</textarea>
+        <textarea name="critica" placeholder="Escreva sua opinião..." required></textarea>
 
         <div class="nota-total">
-          <label>Nota Total:</label>
-          <br>
+          <label for="campo-total">Nota Total:
+            <span class="erro-asterisco" id="erro-asterisco-total">*</span>
+          </label>
           <div class="estrelas" data-name="total">
             {% for i in range(1, 11) %}
-            <span class="estrela {% if dados and 'total' in dados and i <= dados.total|int %}ativa{% endif %}"
-              data-value="{{ i }}">&#9733;</span>
+            <span class="estrela" data-value="{{ i }}">&#9733;</span>
             {% endfor %}
           </div>
-          <input type="hidden" name="total" value="{{ dados.total if dados and 'total' in dados else '' }}" required>
+          <input type="hidden" name="total" id="campo-total" />
         </div>
 
-        <br>
+        <br />
         <button type="submit">Enviar Avaliação</button>
       </form>
     </div>
@@ -73,21 +65,44 @@
   </footer>
 
   <script>
+    // Marca as estrelas clicadas e preenche o input hidden
     document.querySelectorAll('.estrelas').forEach(box => {
       const estrelas = box.querySelectorAll('.estrela');
-      const inputName = box.dataset.name;
-      const hidden = document.querySelector(`input[name="${inputName}"]`);
+      const hiddenInput = box.parentElement.querySelector('input[type=hidden]');
 
       estrelas.forEach(estrela => {
         estrela.addEventListener('click', () => {
           const val = parseInt(estrela.dataset.value);
-          hidden.value = val;
+          hiddenInput.value = val;
 
           estrelas.forEach(e => {
             e.classList.toggle('ativa', parseInt(e.dataset.value) <= val);
           });
         });
       });
+    });
+
+    // Validação no submit do formulário
+    document.getElementById('form-avaliar').addEventListener('submit', function (event) {
+      let valido = true;
+
+      // Validar campos estrela
+      ['roteiro', 'atuacao', 'direcao', 'fotografia', 'trilha', 'montagem', 'impacto', 'total'].forEach(campo => {
+        const input = document.getElementById(`campo-${campo}`);
+        const erro = document.getElementById(`erro-asterisco-${campo}`);
+
+        if (!input.value) {
+          erro.style.visibility = 'visible';
+          valido = false;
+        } else {
+          erro.style.visibility = 'hidden';
+        }
+      });
+
+      if (!valido) {
+        event.preventDefault();
+        alert('Por favor, preencha todas as avaliações (estrelas) antes de enviar.');
+      }
     });
   </script>
 </body>
