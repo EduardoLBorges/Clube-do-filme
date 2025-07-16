@@ -63,24 +63,7 @@ h1 {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-
-/* Remover largura máxima do form (que impedia grid funcionar) */
-.avaliacao-form {
-  width: 100%;
-  max-width: none;
-  max-height: 500px;
-  background: white;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-
-.container {
-  display: flex;
-  justify-content: center;
-}
-
+/* ===== FORMULÁRIO DE AVALIAÇÃO ===== */
 .formulario {
   background: white;
   padding: 20px;
@@ -117,7 +100,7 @@ h1 {
   background-color: #1d3557;
 }
 
-/* GRID ADAPTATIVO de avaliações */
+/* Avaliações em grade */
 .avaliacoes-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -125,7 +108,7 @@ h1 {
   margin-top: 20px;
 }
 
-/* Cada avaliação como um cartão */
+/* Cartão de avaliação individual */
 .avaliacao {
   background: #fff;
   padding: 15px 20px;
@@ -138,37 +121,52 @@ h1 {
   min-width: 0;
 }
 
-.nota-total {
-  text-align: center;
+/* Topo da avaliação: nome, data, excluir */
+.avaliacao-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
 }
 
-/* Botão excluir discreto */
-.btn-excluir {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: none;
-  border: none;
-  color: #aaa;
-  cursor: pointer;
+.data-avaliacao {
   font-size: 0.9rem;
+  color: #666;
+  margin-left: 10px;
 }
 
-.btn-excluir:hover {
-  color: red;
+/* Listagem de notas */
+.avaliacao ul {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 0.5rem;
 }
 
-/* Garante que texto da crítica quebre corretamente */
+.avaliacao ul li {
+  margin: 4px 0;
+}
+
+/* Texto da crítica */
 .avaliacao p {
   margin-top: 10px;
   word-wrap: break-word;
   overflow-wrap: break-word;
 }
 
-textarea {
-  resize: vertical;
+/* Botão excluir discreto */
+.btn-excluir {
+  background: none;
+  border: none;
+  color: #aaa;
+  cursor: pointer;
+  font-size: 1.2rem;
 }
 
+.btn-excluir:hover {
+  color: red;
+}
+
+/* Estrelas */
 .estrelas-box {
   margin: 10px 0;
   display: flex;
@@ -203,6 +201,7 @@ textarea {
 .nota-total {
   margin: 10px 0;
   align-items: center;
+  text-align: center;
 }
 
 .nota-total label {
@@ -210,6 +209,7 @@ textarea {
   font-weight: 600;
 }
 
+/* Estrelas da nota total */
 .estrelas-total {
   display: block;
   color: #ccc;
@@ -219,8 +219,11 @@ textarea {
   text-align: center;
 }
 
-/* Tela inicial */
+textarea {
+  resize: vertical;
+}
 
+/* Página inicial */
 .filme-semana {
   text-align: center;
 }
@@ -285,8 +288,7 @@ textarea {
   border-radius: 5px;
 }
 
-/* Pagina de configurações */
-
+/* Página de configurações */
 .config-page {
   max-width: 800px;
   margin: 0 auto;
@@ -361,8 +363,7 @@ textarea {
   text-decoration: underline;
 }
 
-/* Footer */
-
+/* Botão de navegação */
 .nav-button {
   background-color: #457b9d;
   color: white;
@@ -378,51 +379,36 @@ textarea {
   background-color: #1d3557;
 }
 
-/* tooltips de avaliações */
+/* Tooltip de avaliações */
 .info-tooltip {
   position: relative;
-  display: inline-block;
-  margin-left: 6px;
-  color: #457b9d;
-  cursor: help;
+  cursor: pointer;
   font-weight: bold;
-  font-size: 1rem;
-  user-select: none;
+  color: #888;
+  margin-left: 6px;
+  font-size: 0.9rem;
 }
 
-.tooltip-text {
+.info-tooltip .tooltip-text {
   visibility: hidden;
-  width: 260px;
-  background-color: #333;
+  opacity: 0;
+  width: 280px;
+  background-color: #1d3557;
   color: #fff;
   text-align: left;
   border-radius: 6px;
-  padding: 8px 10px;
+  padding: 10px;
   position: absolute;
-  z-index: 100;
+  z-index: 1;
   bottom: 125%;
   left: 50%;
-  margin-left: -130px;
-  opacity: 0;
+  transform: translateX(-50%);
   transition: opacity 0.3s;
-  font-size: 0.9rem;
-  line-height: 1.3;
-  pointer-events: none; /* evita que atrapalhe o hover */
+  font-size: 0.85rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .info-tooltip:hover .tooltip-text {
   visibility: visible;
   opacity: 1;
-  pointer-events: auto;
-}
-
-.tooltip-text::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -6px;
-  border-width: 6px;
-  border-style: solid;
-  border-color: #333 transparent transparent transparent;
 }

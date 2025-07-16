@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -23,14 +22,13 @@
         <input name="nome" placeholder="Digite seu nome" required />
 
         {% set tooltips = {
-        'roteiro': 'Avalia a originalidade, coesão, ritmo e desenvolvimento da história.',
-        'atuacao': 'Julga a performance dos atores principais e coadjuvantes — se são convincentes e impactantes.',
-        'direcao': 'Analisa como o diretor conduz a narrativa, extrai atuações, e orquestra os elementos técnicos e
-        emocionais.',
-        'fotografia': 'Considera a composição de cena, iluminação, cores e qualidade visual geral.',
-        'trilha': 'Avalia a música, sons ambientes e efeitos — se contribuem para a atmosfera e emoção da obra.',
-        'montagem': 'Julga a fluidez da edição, cortes, transições e ritmo narrativo.',
-        'impacto': 'Observa a profundidade das mensagens, relevância, e o quanto o filme ressoa com o público.'
+          'roteiro': 'Avalia a originalidade, coesão, ritmo e desenvolvimento da história.',
+          'atuacao': 'Julga a performance dos atores principais e coadjuvantes — se são convincentes e impactantes.',
+          'direcao': 'Analisa como o diretor conduz a narrativa, extrai atuações, e orquestra os elementos técnicos e emocionais.',
+          'fotografia': 'Considera a composição de cena, iluminação, cores e qualidade visual geral.',
+          'trilha': 'Avalia a música, sons ambientes e efeitos — se contribuem para a atmosfera e emoção da obra.',
+          'montagem': 'Julga a fluidez da edição, cortes, transições e ritmo narrativo.',
+          'impacto': 'Observa a profundidade das mensagens, relevância, e o quanto o filme ressoa com o público.'
         } %}
 
         {% for campo in ['roteiro', 'atuacao', 'direcao', 'fotografia', 'trilha', 'montagem', 'impacto'] %}
@@ -51,12 +49,12 @@
         </div>
         {% endfor %}
 
-
         <label>Crítica:</label>
         <textarea name="critica" placeholder="Escreva sua opinião..." required></textarea>
 
         <div class="nota-total">
-          <label for="campo-total">Nota Total
+          <label for="campo-total">
+            Nota Total
             <span class="erro-asterisco" id="erro-asterisco-total">*</span>
           </label>
           <div class="estrelas" data-name="total">
@@ -98,11 +96,10 @@
       });
     });
 
-    // Validação no submit do formulário
+    // Validação antes do envio
     document.getElementById('form-avaliar').addEventListener('submit', function (event) {
       let valido = true;
 
-      // Validar campos estrela
       ['roteiro', 'atuacao', 'direcao', 'fotografia', 'trilha', 'montagem', 'impacto', 'total'].forEach(campo => {
         const input = document.getElementById(`campo-${campo}`);
         const erro = document.getElementById(`erro-asterisco-${campo}`);
@@ -122,5 +119,4 @@
     });
   </script>
 </body>
-
 </html>
