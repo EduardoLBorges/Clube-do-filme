@@ -36,7 +36,7 @@ def home():
 
     cur.close()
     conn.close()
-    return render_template('home.html', filmes=filmes, filme=filme)
+    return render_template('manutencao.html', filmes=filmes, filme=filme)
 
 # Rota da pagina de configurações
 @app.route('/config', methods=['GET', 'POST'])
