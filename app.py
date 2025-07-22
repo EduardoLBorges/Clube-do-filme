@@ -18,6 +18,11 @@ def get_connection():
 # Rora da pagina inicial
 @app.route('/')
 def home():
+    return render_template('manutencao.html')
+
+# Rota para lista real
+@app.route('/real')
+def real():
     conn = get_connection()
     cur = conn.cursor()
 
@@ -36,7 +41,7 @@ def home():
 
     cur.close()
     conn.close()
-    return render_template('manutencao.html', filmes=filmes, filme=filme)
+    return render_template('real.html', filmes=filmes, filme=filme)
 
 # Rota da pagina de configurações
 @app.route('/config', methods=['GET', 'POST'])
