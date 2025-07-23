@@ -15,10 +15,55 @@ def get_connection():
         port=os.environ.get("DB_PORT", "5432")
     )
 
-# Rora da pagina inicial
+# Rora de manutenção
 @app.route('/')
 def home():
     return render_template('manutencao.html')
+
+# Rota para lista de filmes
+@app.route('/filmes')
+def filmes():
+    conn = get_connection()
+    cur = conn.cursor()
+
+    # Busca o ID do filme da semana a partir da tabela config
+    cur.execute("SELECT genero_da_semana FROM config LIMIT 1")
+    resultado = cur.fetchone()
+    genero_da_semana = resultado[0] if resultado else 1  # fallback para 1 caso não haja resultado
+    print(genero_da_semana)
+    # Busca os dados do filme da semana
+    cur.execute("SELECT id, titulo, imagem_url FROM filmes WHERE genero = %s", (genero_da_semana,))
+    genero = cur.fetchone()
+
+    # Busca a lista de todos os filmes de Animação
+    cur.execute("SELECT id, titulo, imagem_url, genero, indicacao FROM filmes WHERE genero = 'Animação'")
+    filmes_animacao = cur.fetchall()
+
+    # Busca a lista de todos os filmes de Terror
+    cur.execute("SELECT id, titulo, imagem_url, genero, indicacao FROM filmes WHERE genero = 'Terror'")
+    filmes_terror = cur.fetchall()
+
+    # Busca a lista de todos os filmes de Aventura
+    cur.execute("SELECT id, titulo, imagem_url, genero, indicacao FROM filmes WHERE genero = 'Aventura'")
+    filmes_aventura = cur.fetchall()
+
+    # Busca a lista de todos os filmes de Drama
+    cur.execute("SELECT id, titulo, imagem_url, genero, indicacao FROM filmes WHERE genero = 'Drama'")
+    filmes_drama = cur.fetchall()
+
+    # Busca a lista de todos os filmes de Ficção Científica
+    cur.execute("SELECT id, titulo, imagem_url, genero, indicacao FROM filmes WHERE genero = 'Ficção Científica'")
+    filmes_scifi = cur.fetchall()
+
+    cur.close()
+    conn.close()
+    return render_template('home.html', 
+    filmes_animacao=filmes_animacao, 
+    filmes_terror=filmes_terror, 
+    filmes_aventura=filmes_aventura, 
+    filmes_drama=filmes_drama,
+    filmes_scifi=filmes_scifi,
+    genero=genero)
 
 # Rota para lista real
 @app.route('/real')
@@ -36,7 +81,7 @@ def real():
     filme = cur.fetchone()
 
     # Busca a lista de todos os filmes
-    cur.execute("SELECT id, titulo, imagem_url FROM filmes")
+    cur.execute("SELECT id, titulo, imagem_url FROM filmes WHERE genero = 'real'")
     filmes = cur.fetchall()
 
     cur.close()

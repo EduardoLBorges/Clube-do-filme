@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clube do Filme</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+  <h1>🎬 Genero da Semana:</h1>
+  <div class="filme-semana">
+    <a href="{{ url_for('avaliar', filme_id=genero[0]) }}">
+      <img src="{{ genero[2] }}" class="poster" alt="{{ genero[1] }}">
+    </a>
+    <div class="titulo">{{ genero[1] }}</div>
+  </div>
+
+  <div class="filmes-grid-home">
+    {% for f in filmes_animacao %}
+    <div class="filme-item">
+      <div class="numero">{{ loop.index }}</div>
+      <a href="{{ url_for('avaliacoes', filme_id=f[0]) }}">
+        <img src="{{ f[2] }}" alt="{{ f[1] }}">
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="filmes-grid-home">
+    {% for f in filmes_terror %}
+    <div class="filme-item">
+      <div class="numero">{{ loop.index }}</div>
+      <a href="{{ url_for('avaliacoes', filme_id=f[0]) }}">
+        <img src="{{ f[2] }}" alt="{{ f[1] }}">
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="filmes-grid-home">
+    {% for f in filmes_aventura %}
+    <div class="filme-item">
+      <div class="numero">{{ loop.index }}</div>
+      <a href="{{ url_for('avaliacoes', filme_id=f[0]) }}">
+        <img src="{{ f[2] }}" alt="{{ f[1] }}">
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="filmes-grid-home">
+    {% for f in filmes_drama %}
+    <div class="filme-item">
+      <div class="numero">{{ loop.index }}</div>
+      <a href="{{ url_for('avaliacoes', filme_id=f[0]) }}">
+        <img src="{{ f[2] }}" alt="{{ f[1] }}">
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="filmes-grid-home">
+    {% for f in filmes_scifi %}
+    <div class="filme-item">
+      <div class="numero">{{ loop.index }}</div>
+      <a href="{{ url_for('avaliacoes', filme_id=f[0]) }}">
+        <img src="{{ f[2] }}" alt="{{ f[1] }}">
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+</body>
+
+</html>
