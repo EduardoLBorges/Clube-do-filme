@@ -12,17 +12,23 @@
 <body>
   <main>
     <h1>🎬 Genero da Semana:</h1>
-    <div class="filme-semana">
-      <a href="{{ url_for('avaliar', filme_id=genero[0]) }}">
-        <img src="{{ genero[2] }}" class="poster" alt="{{ genero[1] }}">
-      </a>
-      <div class="titulo">{{ genero[1] }}</div>
+    <div class="genero-semana">
+      <div class="genero-semana-grid">
+        {% for f in filmes_genero %}
+        <div class="filmes-semana">
+          <a href="{{ url_for('avaliar', filme_id=f[0]) }}">
+            <img src="{{ f[2] }}" class="poster" alt="{{ f[1] }}">
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="titulo">{{ genero_da_semana }}</div>
     </div>
 
     <div class="filmes-grid-home">
       {% for f in filmes_animacao %}
       <div class="filme-item">
-        <div class="numero">{{ loop.index }}</div>
+        <div class="numero">{{ f[4] }}</div>
         <a href="{{ url_for('avaliacoes', filme_id=f[0]) }}">
           <img src="{{ f[2] }}" alt="{{ f[1] }}">
         </a>
@@ -32,7 +38,7 @@
     <div class="filmes-grid-home">
       {% for f in filmes_terror %}
       <div class="filme-item">
-        <div class="numero">{{ loop.index }}</div>
+        <div class="numero">{{ f[4] }}</div>
         <a href="{{ url_for('avaliacoes', filme_id=f[0]) }}">
           <img src="{{ f[2] }}" alt="{{ f[1] }}">
         </a>
@@ -42,7 +48,7 @@
     <div class="filmes-grid-home">
       {% for f in filmes_aventura %}
       <div class="filme-item">
-        <div class="numero">{{ loop.index }}</div>
+        <div class="numero">{{ f[4] }}</div>
         <a href="{{ url_for('avaliacoes', filme_id=f[0]) }}">
           <img src="{{ f[2] }}" alt="{{ f[1] }}">
         </a>
@@ -52,7 +58,7 @@
     <div class="filmes-grid-home">
       {% for f in filmes_drama %}
       <div class="filme-item">
-        <div class="numero">{{ loop.index }}</div>
+        <div class="numero">{{ f[4] }}</div>
         <a href="{{ url_for('avaliacoes', filme_id=f[0]) }}">
           <img src="{{ f[2] }}" alt="{{ f[1] }}">
         </a>
@@ -62,7 +68,7 @@
     <div class="filmes-grid-home">
       {% for f in filmes_scifi %}
       <div class="filme-item">
-        <div class="numero">{{ loop.index }}</div>
+        <div class="numero">{{ f[4] }}</div>
         <a href="{{ url_for('avaliacoes', filme_id=f[0]) }}">
           <img src="{{ f[2] }}" alt="{{ f[1] }}">
         </a>
@@ -70,6 +76,7 @@
       {% endfor %}
     </div>
   </main>
+
 </body>
 
 </html>

@@ -33,26 +33,26 @@ def filmes():
     print(genero_da_semana)
     # Busca os dados do filme da semana
     cur.execute("SELECT id, titulo, imagem_url FROM filmes WHERE genero = %s", (genero_da_semana,))
-    genero = cur.fetchone()
-
+    filmes_genero = cur.fetchall()
+    print(filmes_genero)
     # Busca a lista de todos os filmes de Animação
-    cur.execute("SELECT id, titulo, imagem_url, genero, indicacao FROM filmes WHERE genero = 'Animação'")
+    cur.execute("SELECT id, titulo, imagem_url, genero, indicacao FROM filmes WHERE genero = 'Animação' ORDER BY ordem ASC")
     filmes_animacao = cur.fetchall()
-
+    print(filmes_animacao)
     # Busca a lista de todos os filmes de Terror
-    cur.execute("SELECT id, titulo, imagem_url, genero, indicacao FROM filmes WHERE genero = 'Terror'")
+    cur.execute("SELECT id, titulo, imagem_url, genero, indicacao FROM filmes WHERE genero = 'Terror' ORDER BY ordem ASC")
     filmes_terror = cur.fetchall()
 
     # Busca a lista de todos os filmes de Aventura
-    cur.execute("SELECT id, titulo, imagem_url, genero, indicacao FROM filmes WHERE genero = 'Aventura'")
+    cur.execute("SELECT id, titulo, imagem_url, genero, indicacao FROM filmes WHERE genero = 'Aventura' ORDER BY ordem ASC")
     filmes_aventura = cur.fetchall()
 
     # Busca a lista de todos os filmes de Drama
-    cur.execute("SELECT id, titulo, imagem_url, genero, indicacao FROM filmes WHERE genero = 'Drama'")
+    cur.execute("SELECT id, titulo, imagem_url, genero, indicacao FROM filmes WHERE genero = 'Drama' ORDER BY ordem ASC")
     filmes_drama = cur.fetchall()
 
     # Busca a lista de todos os filmes de Ficção Científica
-    cur.execute("SELECT id, titulo, imagem_url, genero, indicacao FROM filmes WHERE genero = 'Ficção Científica'")
+    cur.execute("SELECT id, titulo, imagem_url, genero, indicacao FROM filmes WHERE genero = 'Ficção Científica' ORDER BY ordem ASC")
     filmes_scifi = cur.fetchall()
 
     cur.close()
@@ -63,7 +63,8 @@ def filmes():
     filmes_aventura=filmes_aventura, 
     filmes_drama=filmes_drama,
     filmes_scifi=filmes_scifi,
-    genero=genero)
+    filmes_genero=filmes_genero,
+    genero_da_semana=genero_da_semana)
 
 # Rota para lista real
 @app.route('/real')

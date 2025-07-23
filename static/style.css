@@ -228,6 +228,38 @@ textarea {
   text-align: center;
 }
 
+
+.genero-semana-grid {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 180px;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 10px 10px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  scrollbar-color: #888 transparent;
+}
+
+.filmes-semana{  
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  text-align: center;
+  position: relative;
+  transition: transform 0.3s;
+  width: 170px;
+  height: auto;
+  scroll-snap-align: start;
+}
+
+.filmes-semana img{
+  width: auto;
+  height: 250px;
+  border-bottom: 1px solid #eee;
+}
+
 .titulo {
   background: #457b9d;
   border-radius: 10px;
@@ -243,7 +275,7 @@ textarea {
 .filmes-grid-home {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: auto; /* largura fixa de cada item */
+  grid-auto-columns: auto;
   gap: 20px;
   overflow-x: auto;
   padding: 10px 10px;
@@ -264,8 +296,6 @@ textarea {
   width: fit-content;
   height: auto;
   scroll-snap-align: start;
-  flex-shrink: 0;
-  justify-content: center;
 }
 
 .filme-item:hover {
@@ -274,7 +304,7 @@ textarea {
 
 .filme-item img {
   width: auto;
-  height: 250px;
+  height: 150px;
   border-bottom: 1px solid #eee;
   max-width: auto;
 }
