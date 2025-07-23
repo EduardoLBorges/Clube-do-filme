@@ -16,12 +16,12 @@ def get_connection():
     )
 
 # Rora de manutenção
-@app.route('/')
-def home():
+@app.route('/manutencao')
+def manutencao():
     return render_template('manutencao.html')
 
 # Rota para lista de filmes
-@app.route('/filmes')
+@app.route('/')
 def filmes():
     conn = get_connection()
     cur = conn.cursor()
