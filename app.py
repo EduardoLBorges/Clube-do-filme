@@ -22,7 +22,7 @@ def manutencao():
 
 # Rota para lista de filmes
 @app.route('/')
-def filmes():
+def home():
     conn = get_connection()
     cur = conn.cursor()
 
