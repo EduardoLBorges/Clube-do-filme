@@ -225,6 +225,7 @@ h1 {
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
   overflow: hidden;
   transition: all 0.3s ease;
+  max-width: fit-content;
 }
 
 .filmes-semana:hover {
@@ -299,12 +300,12 @@ h1 {
 
 .filmes-grid-home .filme-item {
   flex: 0 0 140px;
-  min-width: 140px;
+  min-width: fit-content;
 }
 
 .filmes-grid-real {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
   gap: 25px;
   margin-top: 40px;
 }
@@ -317,6 +318,8 @@ h1 {
   text-align: center;
   position: relative;
   transition: all 0.3s ease;
+  max-width: fit-content;
+  height: 100%;
 }
 
 .filme-item:hover {
