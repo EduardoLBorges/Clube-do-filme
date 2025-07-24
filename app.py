@@ -21,7 +21,7 @@ def manutencao():
     return render_template('manutencao.html')
 
 # Rota para lista de filmes
-@app.route('/')
+@app.route('/', endpoint='home')
 def home():
     conn = get_connection()
     cur = conn.cursor()
