@@ -32,7 +32,7 @@ def home():
     genero_da_semana = resultado[0] if resultado else 1  # fallback para 1 caso não haja resultado
     print(genero_da_semana)
     # Busca os dados do filme da semana
-    cur.execute("SELECT id, titulo, imagem_url FROM filmes WHERE genero = %s", (genero_da_semana,))
+    cur.execute("SELECT id, titulo, imagem_url FROM filmes WHERE genero = %s ORDER BY ordem ASC" , (genero_da_semana,))
     filmes_genero = cur.fetchall()
     print(filmes_genero)
     # Busca a lista de todos os filmes de Animação
