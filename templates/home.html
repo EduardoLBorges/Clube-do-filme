@@ -18,6 +18,7 @@
       <div class="genero-semana-grid">
         {% for f in filmes_genero %}
         <div class="filmes-semana">
+          <div class="numero">{{ f[3] }}</div>
           <a href="{{ url_for('avaliar', filme_id=f[0]) }}">
             <img src="{{ f[2] }}" alt="{{ f[1] }}">
           </a>
