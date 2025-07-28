@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -12,9 +11,10 @@
 
 <body>
   <main>
-    <h1>🎬 Gênero da Semana</h1>
-    
+    <h1>🎬 Gênero do Mês</h1>
+
     <div class="genero-semana">
+      <div class="titulo">{{ genero_da_semana }}</div>
       <div class="genero-semana-grid">
         {% for f in filmes_genero %}
         <div class="filmes-semana">
@@ -25,7 +25,6 @@
         </div>
         {% endfor %}
       </div>
-      <div class="titulo">{{ genero_da_semana }}</div>
     </div>
 
     <div class="categoria-section">
