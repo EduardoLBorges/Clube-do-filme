@@ -119,92 +119,89 @@
     const dots = document.querySelectorAll('.dot');
     const slidesWrapper = document.getElementById('slides-wrapper');
     const totalSlides = slides.length;
+    const container = document.querySelector('.slideshow-container');
 
-    // Atualiza o contador
+    let autoPlayInterval;
+    const AUTO_PLAY_DELAY = 5000;
+
     document.getElementById('total-slides').textContent = totalSlides;
 
     function showSlide(index) {
-      // Normaliza o índice
-      if (index >= totalSlides) slideIndex = 0;
-      if (index < 0) slideIndex = totalSlides - 1;
+      slideIndex = (index + totalSlides) % totalSlides; // garante loop circular
 
-      // Move os slides
       const translateX = -slideIndex * 100;
       slidesWrapper.style.transform = `translateX(${translateX}%)`;
 
-      // Atualiza os dots
       dots.forEach(dot => dot.classList.remove('active'));
       dots[slideIndex].classList.add('active');
 
-      // Atualiza o contador
       document.getElementById('current-slide').textContent = slideIndex + 1;
     }
 
     function changeSlide(direction) {
-      slideIndex += direction;
-      showSlide(slideIndex);
+      showSlide(slideIndex + direction);
+      resetAutoPlay(); // reinicia timer ao usar seta
     }
 
-    function currentSlide(index) {
-      slideIndex = index - 1;
-      showSlide(slideIndex);
+    function goToSlide(index) {
+      showSlide(index);
+      resetAutoPlay(); // reinicia timer ao clicar nos dots
     }
 
-    // Auto-play (opcional)
-    setInterval(() => {
-      slideIndex++;
-      showSlide(slideIndex);
-    }, 5000);
+    function startAutoPlay() {
+      stopAutoPlay(); // garante que nenhum intervalo duplique
+      autoPlayInterval = setInterval(() => {
+        showSlide(slideIndex + 1);
+      }, AUTO_PLAY_DELAY);
+    }
 
-    // Suporte a gestos em mobile
+    function stopAutoPlay() {
+      if (autoPlayInterval) {
+        clearInterval(autoPlayInterval);
+        autoPlayInterval = null;
+      }
+    }
+
+    function resetAutoPlay() {
+      stopAutoPlay();
+      startAutoPlay();
+    }
+
+    // Eventos de teclado
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') changeSlide(-1);
+      if (e.key === 'ArrowRight') changeSlide(1);
+    });
+
+    // Eventos de mouse
+    container.addEventListener('mouseenter', stopAutoPlay);
+    container.addEventListener('mouseleave', startAutoPlay);
+
+    // Eventos de swipe
     let startX = 0;
-    let endX = 0;
-
     slidesWrapper.addEventListener('touchstart', (e) => {
       startX = e.touches[0].clientX;
     });
 
     slidesWrapper.addEventListener('touchend', (e) => {
-      endX = e.changedTouches[0].clientX;
-
+      const endX = e.changedTouches[0].clientX;
       const diff = startX - endX;
 
-      if (Math.abs(diff) > 50) { // Mínimo de 50px para registrar o swipe
-        if (diff > 0) {
-          changeSlide(1); // Swipe para esquerda = próximo slide
-        } else {
-          changeSlide(-1); // Swipe para direita = slide anterior
-        }
+      if (Math.abs(diff) > 50) {
+        changeSlide(diff > 0 ? 1 : -1);
       }
     });
 
-    // Pausa o auto-play quando o mouse está sobre o slideshow
-    const container = document.querySelector('.slideshow-container');
-    let autoPlayInterval;
-
-    function startAutoPlay() {
-      autoPlayInterval = setInterval(() => {
-        slideIndex++;
-        showSlide(slideIndex);
-      }, 5000);
-    }
-
-    function stopAutoPlay() {
-      clearInterval(autoPlayInterval);
-    }
-
-    container.addEventListener('mouseenter', stopAutoPlay);
-    container.addEventListener('mouseleave', startAutoPlay);
-
-    // Inicia o auto-play
-    startAutoPlay();
-
-    // Suporte a teclado
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft') changeSlide(-1);
-      if (e.key === 'ArrowRight') changeSlide(1);
+    // Dots
+    dots.forEach((dot, i) => {
+      dot.addEventListener('click', () => goToSlide(i));
     });
+
+    // Início
+    showSlide(slideIndex);
+    startAutoPlay();
   </script>
+
 </body>
 
 </html>

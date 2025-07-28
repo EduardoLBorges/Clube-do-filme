@@ -32,7 +32,7 @@ def home():
     genero_da_semana = resultado[0] if resultado else 1  # fallback para 1 caso não haja resultado
 
     # Busca os dados do filme da semana
-    cur.execute("SELECT f.id, f.titulo, f.imagem_url, COUNT(av.filme_id) AS total_avaliacoes,STRING_AGG(av.nome, ', ') AS nomes_avaliadores FROM filmes AS f FULL JOIN avaliacoes AS av ON av.filme_id = f.id WHERE genero = %s GROUP BY f.id, f.titulo, f.imagem_url", (genero_da_semana,))
+    cur.execute("SELECT f.id, f.titulo, f.imagem_url, COUNT(av.filme_id) AS total_avaliacoes,STRING_AGG(av.nome, ', ') AS nomes_avaliadores FROM filmes AS f FULL JOIN avaliacoes AS av ON av.filme_id = f.id WHERE genero = %s GROUP BY f.id, f.titulo, f.imagem_url ORDER BY f.id", (genero_da_semana,))
     filmes_genero = cur.fetchall()
 
     # Busca a lista de todos os filmes de Animação
