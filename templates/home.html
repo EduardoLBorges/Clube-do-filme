@@ -1,103 +1,210 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Clube do Filme</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <title>Slideshow de Cards Responsivo</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
 </head>
 
 <body>
-  <main>
-    <h1>🎬 Gênero do Mês</h1>
+  <h1>🎬 Gênero do Mês</h1>
+  <div class="titulo">{{ genero_da_semana }}</div>
+  <div class="slideshow-container">
+    <div class="slide-counter">
+      <span id="current-slide">1</span> / <span id="total-slides">5</span>
+    </div>
 
-    <div class="genero-semana">
-      <div class="titulo">{{ genero_da_semana }}</div>
-      <div class="genero-semana-grid">
-        {% for f in filmes_genero %}
-        <div class="filmes-semana">
-          <div class="numero">{{ f[3] }}</div>
+    <div class="slides-wrapper" id="slides-wrapper">
+      {% for f in filmes_genero %}
+      <div class="slide">
+        <div class="card">
+          <h3>{{ f[1] }}</h3>
           <a href="{{ url_for('avaliar', filme_id=f[0]) }}">
             <img src="{{ f[2] }}" alt="{{ f[1] }}">
           </a>
+          <div class="numero">{{ f[3] }}</div>
         </div>
-        {% endfor %}
       </div>
+      {% endfor %}
     </div>
 
-    <div class="categoria-section">
-      <h2 class="categoria-titulo">🎨 Animação</h2>
-      <div class="filmes-grid-home">
-        {% for f in filmes_animacao %}
-        <div class="filme-item">
-          <div class="numero">{{ f[4] }}</div>
-          <a href="{{ url_for('avaliacoes', filme_id=f[0]) }}">
-            <img src="{{ f[2] }}" alt="{{ f[1] }}">
-          </a>
-        </div>
-        {% endfor %}
-      </div>
-    </div>
+    <button class="navigation prev" onclick="changeSlide(-1)">❮</button>
+    <button class="navigation next" onclick="changeSlide(1)">❯</button>
 
-    <div class="categoria-section">
-      <h2 class="categoria-titulo">😱 Terror</h2>
-      <div class="filmes-grid-home">
-        {% for f in filmes_terror %}
-        <div class="filme-item">
-          <div class="numero">{{ f[4] }}</div>
-          <a href="{{ url_for('avaliacoes', filme_id=f[0]) }}">
-            <img src="{{ f[2] }}" alt="{{ f[1] }}">
-          </a>
-        </div>
-        {% endfor %}
-      </div>
+    <div class="dots-container">
+      <span class="dot active" onclick="currentSlide(1)"></span>
+      <span class="dot" onclick="currentSlide(2)"></span>
+      <span class="dot" onclick="currentSlide(3)"></span>
+      <span class="dot" onclick="currentSlide(4)"></span>
+      <span class="dot" onclick="currentSlide(5)"></span>
     </div>
+  </div>
 
-    <div class="categoria-section">
-      <h2 class="categoria-titulo">⚔️ Aventura</h2>
-      <div class="filmes-grid-home">
-        {% for f in filmes_aventura %}
-        <div class="filme-item">
-          <div class="numero">{{ f[4] }}</div>
-          <a href="{{ url_for('avaliacoes', filme_id=f[0]) }}">
-            <img src="{{ f[2] }}" alt="{{ f[1] }}">
-          </a>
-        </div>
-        {% endfor %}
+
+  <div class="categoria-section">
+    <h2 class="categoria-titulo">🎨 Animação</h2>
+    <div class="filmes-grid-home">
+      {% for f in filmes_animacao %}
+      <div class="filme-item">
+        <div class="numero">{{ f[4] }}</div>
+        <a href="{{ url_for('avaliacoes', filme_id=f[0]) }}">
+          <img src="{{ f[2] }}" alt="{{ f[1] }}">
+        </a>
       </div>
+      {% endfor %}
     </div>
+  </div>
 
-    <div class="categoria-section">
-      <h2 class="categoria-titulo">🎭 Drama</h2>
-      <div class="filmes-grid-home">
-        {% for f in filmes_drama %}
-        <div class="filme-item">
-          <div class="numero">{{ f[4] }}</div>
-          <a href="{{ url_for('avaliacoes', filme_id=f[0]) }}">
-            <img src="{{ f[2] }}" alt="{{ f[1] }}">
-          </a>
-        </div>
-        {% endfor %}
+  <div class="categoria-section">
+    <h2 class="categoria-titulo">😱 Terror</h2>
+    <div class="filmes-grid-home">
+      {% for f in filmes_terror %}
+      <div class="filme-item">
+        <div class="numero">{{ f[4] }}</div>
+        <a href="{{ url_for('avaliacoes', filme_id=f[0]) }}">
+          <img src="{{ f[2] }}" alt="{{ f[1] }}">
+        </a>
       </div>
+      {% endfor %}
     </div>
+  </div>
 
-    <div class="categoria-section">
-      <h2 class="categoria-titulo">🚀 Ficção Científica</h2>
-      <div class="filmes-grid-home">
-        {% for f in filmes_scifi %}
-        <div class="filme-item">
-          <div class="numero">{{ f[4] }}</div>
-          <a href="{{ url_for('avaliacoes', filme_id=f[0]) }}">
-            <img src="{{ f[2] }}" alt="{{ f[1] }}">
-          </a>
-        </div>
-        {% endfor %}
+  <div class="categoria-section">
+    <h2 class="categoria-titulo">⚔️ Aventura</h2>
+    <div class="filmes-grid-home">
+      {% for f in filmes_aventura %}
+      <div class="filme-item">
+        <div class="numero">{{ f[4] }}</div>
+        <a href="{{ url_for('avaliacoes', filme_id=f[0]) }}">
+          <img src="{{ f[2] }}" alt="{{ f[1] }}">
+        </a>
       </div>
+      {% endfor %}
     </div>
-  </main>
+  </div>
 
+  <div class="categoria-section">
+    <h2 class="categoria-titulo">🎭 Drama</h2>
+    <div class="filmes-grid-home">
+      {% for f in filmes_drama %}
+      <div class="filme-item">
+        <div class="numero">{{ f[4] }}</div>
+        <a href="{{ url_for('avaliacoes', filme_id=f[0]) }}">
+          <img src="{{ f[2] }}" alt="{{ f[1] }}">
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="categoria-section">
+    <h2 class="categoria-titulo">🚀 Ficção Científica</h2>
+    <div class="filmes-grid-home">
+      {% for f in filmes_scifi %}
+      <div class="filme-item">
+        <div class="numero">{{ f[4] }}</div>
+        <a href="{{ url_for('avaliacoes', filme_id=f[0]) }}">
+          <img src="{{ f[2] }}" alt="{{ f[1] }}">
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <script>
+    let slideIndex = 0;
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+    const slidesWrapper = document.getElementById('slides-wrapper');
+    const totalSlides = slides.length;
+
+    // Atualiza o contador
+    document.getElementById('total-slides').textContent = totalSlides;
+
+    function showSlide(index) {
+      // Normaliza o índice
+      if (index >= totalSlides) slideIndex = 0;
+      if (index < 0) slideIndex = totalSlides - 1;
+
+      // Move os slides
+      const translateX = -slideIndex * 100;
+      slidesWrapper.style.transform = `translateX(${translateX}%)`;
+
+      // Atualiza os dots
+      dots.forEach(dot => dot.classList.remove('active'));
+      dots[slideIndex].classList.add('active');
+
+      // Atualiza o contador
+      document.getElementById('current-slide').textContent = slideIndex + 1;
+    }
+
+    function changeSlide(direction) {
+      slideIndex += direction;
+      showSlide(slideIndex);
+    }
+
+    function currentSlide(index) {
+      slideIndex = index - 1;
+      showSlide(slideIndex);
+    }
+
+    // Auto-play (opcional)
+    setInterval(() => {
+      slideIndex++;
+      showSlide(slideIndex);
+    }, 5000);
+
+    // Suporte a gestos em mobile
+    let startX = 0;
+    let endX = 0;
+
+    slidesWrapper.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+    });
+
+    slidesWrapper.addEventListener('touchend', (e) => {
+      endX = e.changedTouches[0].clientX;
+
+      const diff = startX - endX;
+
+      if (Math.abs(diff) > 50) { // Mínimo de 50px para registrar o swipe
+        if (diff > 0) {
+          changeSlide(1); // Swipe para esquerda = próximo slide
+        } else {
+          changeSlide(-1); // Swipe para direita = slide anterior
+        }
+      }
+    });
+
+    // Pausa o auto-play quando o mouse está sobre o slideshow
+    const container = document.querySelector('.slideshow-container');
+    let autoPlayInterval;
+
+    function startAutoPlay() {
+      autoPlayInterval = setInterval(() => {
+        slideIndex++;
+        showSlide(slideIndex);
+      }, 5000);
+    }
+
+    function stopAutoPlay() {
+      clearInterval(autoPlayInterval);
+    }
+
+    container.addEventListener('mouseenter', stopAutoPlay);
+    container.addEventListener('mouseleave', startAutoPlay);
+
+    // Inicia o auto-play
+    startAutoPlay();
+
+    // Suporte a teclado
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') changeSlide(-1);
+      if (e.key === 'ArrowRight') changeSlide(1);
+    });
+  </script>
 </body>
 
 </html>
