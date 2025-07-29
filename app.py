@@ -1,9 +1,6 @@
 import psycopg2
 import os
 from flask import Flask, render_template, request, redirect, url_for, session, flash
-from dotenv import load_dotenv
-
-load_dotenv()  # ← Carrega variáveis do .env
 
 app = Flask(__name__)
 app.secret_key = 'chave_secreta_segura' 
