@@ -1,44 +1,43 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Clube do Filme</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Clube do Filme</title>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
-  <main>
-    <h1>🎬 Filme da Semana</h1>
-    
-    <div class="genero-semana">
-      <div class="genero-semana-grid">
-        <div class="filmes-semana">
-          <a href="{{ url_for('avaliar', filme_id=filme[0]) }}">
-            <img src="{{ filme[2] }}" alt="{{ filme[1] }}">
-          </a>
-        </div>
-      </div>
-      <div class="titulo">{{ filme[1] }}</div>
-    </div>
+	<main>
+		<h1>🎬 Filme da Semana</h1>
 
-    <div class="categoria-section">
-      <h2 class="categoria-titulo">🎥 Todos os Filmes</h2>
-      <div class="filmes-grid-real">
-        {% for f in filmes %}
-        <div class="filme-item">
-          <div class="numero">{{ loop.index }}</div>
-          <a href="{{ url_for('avaliacoes', filme_id=f[0]) }}">
-            <img src="{{ f[2] }}" alt="{{ f[1] }}">
-          </a>
-        </div>
-        {% endfor %}
-      </div>
-    </div>
-  </main>
+		<div class="genero-semana">
+			<div class="genero-semana-grid">
+				<div class="filmes-semana">
+					<a href="{{ url_for('avaliar', filme_id=filme[0]) }}">
+						<img src="{{ filme[2] }}" alt="{{ filme[1] }}">
+					</a>
+				</div>
+			</div>
+			<div class="titulo">{{ filme[1] }}</div>
+		</div>
+
+		<div class="categoria-section">
+			<h2 class="categoria-titulo">🎥 Todos os Filmes</h2>
+			<div class="filmes-grid-real">
+				{% for f in filmes %}
+				<div class="filme-item">
+					<div class="numero">{{ loop.index }}</div>
+					<a href="{{ url_for('avaliacoes', filme_id=f[0]) }}">
+						<img src="{{ f[2] }}" alt="{{ f[1] }}">
+					</a>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+	</main>
 
 </body>
 
