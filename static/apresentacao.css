@@ -25,6 +25,8 @@ html, body {
     max-width: 500px;
     max-height: 100%;
     object-fit: contain;
+    border-radius: 15px;
+    border: 2px solid transparent;
 }
 
 .reviews-container {

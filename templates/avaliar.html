@@ -117,6 +117,18 @@
         alert('Por favor, preencha todas as avaliações (estrelas) antes de enviar.');
       }
     });
+  // Auto-resize da textarea
+    const textarea = document.querySelector('textarea[name="critica"]');
+
+    function resizeTextarea() {
+        textarea.style.height = 'auto';
+        textarea.style.height = `${textarea.scrollHeight}px`;
+    }
+
+    textarea.addEventListener('input', resizeTextarea);
+
+    // Call resize on page load in case of pre-filled text
+    document.addEventListener('DOMContentLoaded', resizeTextarea);
   </script>
 </body>
 </html>
