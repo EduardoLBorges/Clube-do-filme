@@ -1,0 +1,183 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Helvetica Neue', sans-serif;
+    background-color: #111;
+    color: #fff;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.poster {
+    flex: 0 0 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.poster img {
+    max-width: 500px;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.reviews-container {
+    flex: 1;
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.reviews-slider {
+    width: 100%;
+    max-width: 600px;
+    position: relative;
+    height: auto;
+}
+
+.review {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.review.active {
+    opacity: 1;
+    position: relative;
+}
+
+.review h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.category-scores {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.category-scores p {
+    margin: 0;
+    font-size: 1.1em;
+}
+
+.review > p {
+    font-size: 1.2em;
+    line-height: 1.6;
+    font-style: italic;
+}
+
+.review span {
+    margin-top: 20px;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.slider-nav {
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.slider-nav button {
+    background: none;
+    border: 2px solid #fff;
+    color: #fff;
+    padding: 15px 25px;
+    cursor: pointer;
+    font-size: 20px;
+    margin: 0 15px;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+.slider-nav button:hover {
+    background-color: #fff;
+    color: #111;
+}
+
+.dots-container {
+    display: flex;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #555;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dot.active {
+    background-color: #fff;
+}
+
+.genre-movies {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    text-align: center;
+}
+
+.genre-movies h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.movie-list {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.movie-item {
+    text-decoration: none;
+    color: #fff;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.movie-item:hover {
+    transform: scale(1.05);
+}
+
+.movie-item img {
+    width: 100px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+    border: 2px solid transparent;
+}
+
+.movie-item.current img {
+    border-color: #fff;
+}
+
+.movie-item p {
+    margin-top: 10px;
+    font-size: 0.9em;
+}

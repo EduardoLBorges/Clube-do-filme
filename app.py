@@ -220,6 +220,29 @@ def excluir(id):
     conn.close()
     return redirect(request.referrer or '/')
 
+# Rota da pagina de apresentação
+@app.route('/apresentacao/<int:filme_id>')
+def apresentacao(filme_id):
+    conn = get_connection()
+    cur = conn.cursor()
+
+    # Busca os dados para o poster
+    cur.execute("SELECT id, titulo, imagem_url, genero, ordem FROM filmes WHERE id = %s", (filme_id,))
+    filme = cur.fetchone()
+
+    # Busca os dados de avaliações do filme
+    cur.execute("SELECT * FROM avaliacoes WHERE filme_id = %s ORDER BY data DESC", (filme_id,))
+    avaliacoes = cur.fetchall()
+
+    # Navegação entre filmes do mesmo gênero
+    genero = filme[3]
+    cur.execute("SELECT id, titulo, imagem_url FROM filmes WHERE genero = %s ORDER BY ordem ASC", (genero,))
+    filmes_genero = cur.fetchall()
+
+    cur.close()
+    conn.close()
+    return render_template('apresentacao.html', filme=filme, avaliacoes=avaliacoes, filme_id=filme_id, filmes_genero=filmes_genero)
+
 # Iniciar aplicação
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))

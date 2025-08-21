@@ -3,6 +3,8 @@ CREATE TABLE filmes (
     id SERIAL PRIMARY KEY,
     titulo TEXT NOT NULL,
     imagem_url TEXT,
+    genero TEXT,
+    ordem INT,
     data_postagem TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

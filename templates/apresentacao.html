@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apresentação do Livro</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='apresentacao.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="poster">
+            <img src="{{ filme[2] }}" alt="Pôster do Livro - {{ filme[1] }}">
+        </div>
+        <div class="reviews-container">
+            <div class="reviews-slider">
+                {% for avaliacao in avaliacoes %}
+                <div class="review {% if loop.first %}active{% endif %}">
+                    <h2>Avaliação de {{ avaliacao[1] }}</h2>
+                    <div class="category-scores">
+                        <p>Roteiro: {{ avaliacao[2] }}</p>
+                        <p>Atuação: {{ avaliacao[3] }}</p>
+                        <p>Direção: {{ avaliacao[4] }}</p>
+                        <p>Fotografia: {{ avaliacao[5] }}</p>
+                        <p>Trilha Sonora: {{ avaliacao[6] }}</p>
+                        <p>Montagem: {{ avaliacao[7] }}</p>
+                        <p>Impacto: {{ avaliacao[8] }}</p>
+                    </div>
+                    <p>"{{ avaliacao[9] }}"</p>
+                    <span>- Nota: {{ avaliacao[12] }}</span>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="slider-nav">
+                <button class="prev" onclick="changeReview(-1)">&#10094;</button>
+                <div class="dots-container"></div>
+                <button class="next" onclick="changeReview(1)">&#10095;</button>
+            </div>
+        </div>
+    </div>
+    <div class="genre-movies">
+        <div class="movie-list">
+            {% for f in filmes_genero %}
+                <a href="{{ url_for('apresentacao', filme_id=f[0]) }}" class="movie-item {% if f[0] == filme_id %}current{% endif %}">
+                    <p>{{ f[1] }}</p>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='apresentacao.js') }}"></script>
+</body>
+</html>
