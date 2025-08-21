@@ -231,7 +231,7 @@ def apresentacao(filme_id):
     filme = cur.fetchone()
 
     # Busca os dados de avaliações do filme
-    cur.execute("SELECT * FROM avaliacoes WHERE filme_id = %s ORDER BY data DESC", (filme_id,))
+    cur.execute("SELECT * FROM avaliacoes WHERE filme_id = %s ORDER BY nome ASC", (filme_id,))
     avaliacoes = cur.fetchall()
 
     # Navegação entre filmes do mesmo gênero
