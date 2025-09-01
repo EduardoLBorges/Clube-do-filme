@@ -8,30 +8,44 @@
   <title>Clube do Filme</title>
   <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='imagens/icon2.png') }}">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
 </head>
 
 <body>
   <main>
     <h1>🎬 Filme da Semana</h1>
     
-    <div class="genero-semana">
-      <div class="genero-semana-grid">
-        <div class="filmes-semana">
-          <a href="{{ url_for('avaliar', filme_id=filme[0]) }}">
-            <img src="{{ filme[2] }}" alt="{{ filme[1] }}">
-          </a>
+    <div class="slideshow-container">
+        <div class="slides-wrapper" id="slides-wrapper">
+          {% for f in filme %} {# 'filme' is now a list with one element #}
+          <div class="slide">
+            <div class="slide-background" style="background-image: url('{{ f[2] }}');"></div>
+
+            <div class="slide-content">
+              <div class="poster-wrapper">
+                <img src="{{ f[2] }}" alt="Pôster de {{ f[1] }}">
+                <div class="review-count-badge">{{ f[5] }}</div>
+              </div>
+              <div class="info-wrapper">
+                <h3>{{ f[1] }}</h3>
+                <p>{{ f[4] | default('Explore a história deste incrível filme e compartilhe sua opinião com o clube.',
+                  true) }}</p>
+                <a href="{{ url_for('avaliar', filme_id=f[0]) }}" class="btn-avaliar">Ver Detalhes e Avaliar</a>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
         </div>
+        {# Removed navigation buttons, dots, and slide counter as there's only one slide #}
       </div>
-      <div class="titulo">{{ filme[1] }}</div>
-    </div>
 
     <div class="categoria-section">
       <h2 class="categoria-titulo">🎥 Todos os Filmes</h2>
-      <div class="filmes-grid-real">
+      <div class="filmes-grid-home"> {# Changed to filmes-grid-home #}
         {% for f in filmes %}
         <div class="filme-item">
           <div class="numero">{{ loop.index }}</div>
+          <div class="review-count-badge">{{ f[5] }}</div> {# Added review-count-badge #}
           <a href="{{ url_for('avaliacoes', filme_id=f[0]) }}">
             <img src="{{ f[2] }}" alt="{{ f[1] }}">
           </a>

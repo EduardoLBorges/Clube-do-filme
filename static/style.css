@@ -102,11 +102,17 @@ main {
   overflow: hidden;
 }
 
+.poster-container {
+  display: flex;
+  justify-content: center;
+}
+
 .poster {
-  width: 100%;
   height: auto;
   display: block;
   max-width: 100%;
+  max-height: 600px;
+  border-radius: 10px;
 }
 
 .filme-grid .avaliacao {

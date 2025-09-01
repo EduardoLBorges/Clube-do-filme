@@ -46,8 +46,24 @@ def home():
 def real():
     filme_id = db.get_filme_da_semana_id()
     filme = db.get_filme_por_id(filme_id)
-    filmes = db.get_filmes_real()
-    return render_template('real.html', filmes=filmes, filme=filme)
+
+    def add_review_counts(movie_list):
+        movies_with_counts = []
+        for movie in movie_list:
+            movie_id = movie[0] # Assuming movie ID is the first element
+            review_count = db.get_numero_avaliacoes_por_filme(movie_id)
+            movie_data = list(movie)
+            movie_data.append(review_count)
+            movies_with_counts.append(tuple(movie_data))
+        return movies_with_counts
+
+    # Process the single featured movie
+    filme_with_count = add_review_counts([filme])[0] if filme else None
+
+    # Process all movies
+    filmes = add_review_counts(db.get_filmes_real())
+
+    return render_template('real.html', filmes=filmes, filme=[filme_with_count] if filme_with_count else [])
 
 # Rota da pagina de configurações
 @app.route('/config', methods=['GET', 'POST'])
