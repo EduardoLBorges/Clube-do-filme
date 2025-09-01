@@ -11,24 +11,9 @@
 
 <body>
 
-  <header class="site-header">
-    <div class="logo">
-      <img src="{{ url_for('static', filename='imagens/icon_minimalista.png') }}" alt="Logo Clube do Filme">
-      <span>Clube do Filme</span>
-    </div>
-    <nav>
-      <ul>
-        <li><a href="#" class="active">Início</a></li>
-        <li><a href="#">Filmes</a></li>
-        <li><a href="#">Avaliações</a></li>
-        <li><a href="#">Sobre</a></li>
-      </ul>
-    </nav>
-  </header>
-
   <main>
     <section id="destaques">
-      <h1>🎬 Destaques do Mês</h1>
+      <h1>🎬 Categoria do Mês</h1>
       <div class="titulo">{{ genero_da_semana }}</div>
 
       <div class="slideshow-container">
@@ -40,6 +25,7 @@
             <div class="slide-content">
               <div class="poster-wrapper">
                 <img src="{{ f[2] }}" alt="Pôster de {{ f[1] }}">
+                <div class="review-count-badge">{{ f[5] }}</div>
               </div>
               <div class="info-wrapper">
                 <h3>{{ f[1] }}</h3>

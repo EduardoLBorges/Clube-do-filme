@@ -18,57 +18,59 @@
         <img src="{{ filme[1] }}" class="poster" alt="Poster do Filme" />
       </div>
 
-      <form class="formulario" method="post" id="form-avaliar">
-        <label>Seu nome:</label>
-        <input name="nome" placeholder="Digite seu nome" required />
+      <div class="avaliacao"> <!-- Added this div for card styling -->
+        <form class="formulario" method="post" id="form-avaliar">
+          <label>Seu nome:</label>
+          <input name="nome" placeholder="Digite seu nome" required />
 
-        {% set tooltips = {
-          'roteiro': 'Avalia a originalidade, coesão, ritmo e desenvolvimento da história.',
-          'atuacao': 'Julga a performance dos atores principais e coadjuvantes — se são convincentes e impactantes.',
-          'direcao': 'Analisa como o diretor conduz a narrativa, extrai atuações, e orquestra os elementos técnicos e emocionais.',
-          'fotografia': 'Considera a composição de cena, iluminação, cores e qualidade visual geral.',
-          'trilha': 'Avalia a música, sons ambientes e efeitos — se contribuem para a atmosfera e emoção da obra.',
-          'montagem': 'Julga a fluidez da edição, cortes, transições e ritmo narrativo.',
-          'impacto': 'Observa a profundidade das mensagens, relevância, e o quanto o filme ressoa com o público.'
-        } %}
+          {% set tooltips = {
+            'roteiro': 'Avalia a originalidade, coesão, ritmo e desenvolvimento da história.',
+            'atuacao': 'Julga a performance dos atores principais e coadjuvantes — se são convincentes e impactantes.',
+            'direcao': 'Analisa como o diretor conduz a narrativa, extrai atuações, e orquestra os elementos técnicos e emocionais.',
+            'fotografia': 'Considera a composição de cena, iluminação, cores e qualidade visual geral.',
+            'trilha': 'Avalia a música, sons ambientes e efeitos — se contribuem para a atmosfera e emoção da obra.',
+            'montagem': 'Julga a fluidez da edição, cortes, transições e ritmo narrativo.',
+            'impacto': 'Observa a profundidade das mensagens, relevância, e o quanto o filme ressoa com o público.'
+          } %}
 
-        {% for campo in ['roteiro', 'atuacao', 'direcao', 'fotografia', 'trilha', 'montagem', 'impacto'] %}
-        <div class="estrelas-box">
-          <label for="campo-{{ campo }}">
-            {{ campo.capitalize() }}
-            <span class="info-tooltip">ⓘ
-              <span class="tooltip-text">{{ tooltips[campo] }}</span>
-            </span>
-            <span class="erro-asterisco" id="erro-asterisco-{{ campo }}">*</span>
-          </label>
-          <div class="estrelas" data-name="{{ campo }}">
-            {% for i in range(1, 6) %}
-            <span class="estrela" data-value="{{ i }}">&#9733;</span>
-            {% endfor %}
+          {% for campo in ['roteiro', 'atuacao', 'direcao', 'fotografia', 'trilha', 'montagem', 'impacto'] %}
+          <div class="estrelas-box">
+            <label for="campo-{{ campo }}">
+              {{ campo.capitalize() }}
+              <span class="info-tooltip" tabindex="0">ⓘ
+                <span class="tooltip-text">{{ tooltips[campo] }}</span>
+              </span>
+              <span class="erro-asterisco" id="erro-asterisco-{{ campo }}">*</span>
+            </label>
+            <div class="estrelas" data-name="{{ campo }}">
+              {% for i in range(1, 6) %}
+              <span class="estrela" data-value="{{ i }}">&#9733;</span>
+              {% endfor %}
+            </div>
+            <input type="hidden" name="{{ campo }}" id="campo-{{ campo }}" />
           </div>
-          <input type="hidden" name="{{ campo }}" id="campo-{{ campo }}" />
-        </div>
-        {% endfor %}
+          {% endfor %}
 
-        <label>Crítica:</label>
-        <textarea name="critica" placeholder="Escreva sua opinião..." required></textarea>
+          <label>Crítica:</label>
+          <textarea name="critica" placeholder="Escreva sua opinião..." required></textarea>
 
-        <div class="nota-total">
-          <label for="campo-total">
-            Nota Total
-            <span class="erro-asterisco" id="erro-asterisco-total">*</span>
-          </label>
-          <div class="estrelas" data-name="total">
-            {% for i in range(1, 11) %}
-            <span class="estrela" data-value="{{ i }}">&#9733;</span>
-            {% endfor %}
+          <div class="nota-total">
+            <label for="campo-total">
+              Nota Total
+              <span class="erro-asterisco" id="erro-asterisco-total">*</span>
+            </label>
+            <div class="estrelas" data-name="total">
+              {% for i in range(1, 11) %}
+              <span class="estrela" data-value="{{ i }}">&#9733;</span>
+              {% endfor %}
+            </div>
+            <input type="hidden" name="total" id="campo-total" />
           </div>
-          <input type="hidden" name="total" id="campo-total" />
-        </div>
 
-        <br />
-        <button type="submit">Enviar Avaliação</button>
-      </form>
+          <br />
+          <button type="submit">Enviar Avaliação</button>
+        </form>
+      </div> <!-- End of added div -->
     </div>
   </main>
 

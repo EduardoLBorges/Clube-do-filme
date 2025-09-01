@@ -413,6 +413,24 @@ main {
   z-index: 5;
 }
 
+.review-count-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #e50914;
+  color: white;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  z-index: 5;
+}
+
 /* ================================================= */
 /* ===== RESPONSIVIDADE (VERSÃO CORRIGIDA) ===== */
 /* ================================================= */
@@ -461,11 +479,173 @@ main {
         order: 1; 
     }
 
+    .filme-item{
+      height: 240px;
+      background: #2a2a2a; /* Fundo escuro para os itens */
+      border-radius: 10px; /* Bordas mais suaves */
+      overflow: hidden;
+      position: relative;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+      cursor: pointer; /* Indica que é clicável */
+    }
+
+.filme-item:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+}
+
+.filme-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  border-radius: 10px; /* Borda da imagem */
+}
+
+.filme-item:hover img {
+  transform: scale(1.08); /* Efeito de zoom mais sutil */
+}
+
+.numero {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #e50914; /* Cor de destaque */
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 20px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+  z-index: 5;
+}
+
+.poster-wrapper {
+  position: relative; /* Needed for absolute positioning of the badge */
+}
+
+.review-count-badge {
+  position: absolute;
+  top: 10px; /* Adjust as needed */
+  right: 10px; /* Adjust as needed */
+  background-color: #e50914; /* Netflix red */
+  color: white;
+  border-radius: 50%; /* Makes it circular */
+  width: 40px; /* Adjust size as needed */
+  height: 40px; /* Adjust size as needed */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  z-index: 5; /* Ensure it's above the poster */
+}
+
+/* ================================================= */
+/* ===== RESPONSIVIDADE (VERSÃO CORRIGIDA) ===== */
+
+/* --- Telas de Tablet (Até 900px) --- */
+@media (max-width: 900px) {
+    .slideshow-container {
+        height: 450px; /* Reduz a altura para tablets */
+    }
+    .slide-content {
+        padding: 0 40px;
+        gap: 30px;
+    }
+    .poster-wrapper img {
+        height: 320px;
+    }
+    .info-wrapper h3 {
+        font-size: 2.2rem;
+    }
+    .info-wrapper p {
+        font-size: 1rem;
+    }
+}
+
+
+/* --- Telas de Celular (Até 768px) - VERSÃO FINAL E ESTÁVEL --- */
+@media (max-width: 768px) {
+    .slideshow-container {
+        /* Chave da correção: Voltamos a uma altura fixa e previsível. */
+        height: 500px; 
+        padding-top: 0;   /* Removemos padding que pode atrapalhar */
+        padding-bottom: 0;
+    }
+
+    .slide-content {
+        height: 100%; /* Garante que o conteúdo ocupe toda a altura do slide */
+        flex-direction: column; 
+        justify-content: center; /* Centraliza verticalmente todo o conteúdo */
+        text-align: center;
+        padding: 20px;
+        gap: 15px; 
+    }
+    
+    .poster-wrapper {
+        display: block; 
+        order: 1; 
+    }
+
     .poster-wrapper img {
         /* Altura bem definida para o pôster */
         height: 240px; 
         margin-bottom: 0; /* Removemos margens desnecessárias */
     }
+
+    .info-wrapper {
+        max-width: 100%;
+        order: 2; 
+    }
+
+    .info-wrapper h3 {
+        font-size: 1.8rem;
+        line-height: 1.2; /* Melhora a legibilidade do título */
+    }
+    
+    .info-wrapper p {
+        /* Chave da correção: Ocultamos o parágrafo como sugerido */
+        display: none; 
+    }
+    
+    .info-wrapper .btn-avaliar {
+        margin-top: 15px; /* Adiciona espaço entre o título e o botão */
+    }
+
+
+    /* Ajustes nos controles para o novo layout */
+    .navigation {
+        width: 40px; 
+        height: 40px; 
+        font-size: 20px;
+    }
+    .prev { left: 10px; }
+    .next { right: 10px; }
+
+    .dots-container {
+      bottom: 15px; 
+    }
+
+    .slide-counter {
+        bottom: 15px;
+    }
+}
+
+/* Ajustes finos para telas muito pequenas */
+@media (max-width: 480px) {
+  .poster-wrapper img {
+    height: 240px; /* Poster ainda menor para telas pequenas */
+  }
+  .info-wrapper h3 {
+    font-size: 1.8rem;
+  }
+  .info-wrapper p {
+    font-size: 0.9rem;
+  }
+}
 
     .info-wrapper {
         max-width: 100%;
