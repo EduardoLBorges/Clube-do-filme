@@ -136,3 +136,9 @@ def get_filmes_por_genero_ordenado_por_ordem(genero):
         with conn.cursor() as cur:
             cur.execute("SELECT id, titulo, imagem_url FROM filmes WHERE genero = %s ORDER BY ordem ASC", (genero,))
             return cur.fetchall()
+
+def get_numero_avaliacoes_por_filme(filme_id):
+    with get_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute("SELECT COUNT(*) FROM avaliacoes WHERE filme_id = %s", (filme_id,))
+            return cur.fetchone()[0]

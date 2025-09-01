@@ -14,12 +14,23 @@ def manutencao():
 @app.route('/', endpoint='home')
 def home():
     genero_da_semana = db.get_genero_da_semana()
-    filmes_genero = db.get_filmes_por_genero(genero_da_semana)
-    filmes_animacao = db.get_filmes_por_categoria('Animação')
-    filmes_terror = db.get_filmes_por_categoria('Terror')
-    filmes_aventura = db.get_filmes_por_categoria('Aventura')
-    filmes_drama = db.get_filmes_por_categoria('Drama')
-    filmes_scifi = db.get_filmes_por_categoria('Ficção Científica')
+
+    def add_review_counts(movie_list):
+        movies_with_counts = []
+        for movie in movie_list:
+            movie_id = movie[0] # Assuming movie ID is the first element
+            review_count = db.get_numero_avaliacoes_por_filme(movie_id)
+            movie_data = list(movie)
+            movie_data.append(review_count)
+            movies_with_counts.append(tuple(movie_data))
+        return movies_with_counts
+
+    filmes_genero = add_review_counts(db.get_filmes_por_genero(genero_da_semana))
+    filmes_animacao = add_review_counts(db.get_filmes_por_categoria('Animação'))
+    filmes_terror = add_review_counts(db.get_filmes_por_categoria('Terror'))
+    filmes_aventura = add_review_counts(db.get_filmes_por_categoria('Aventura'))
+    filmes_drama = add_review_counts(db.get_filmes_por_categoria('Drama'))
+    filmes_scifi = add_review_counts(db.get_filmes_por_categoria('Ficção Científica'))
 
     return render_template('home.html',
                            filmes_animacao=filmes_animacao,
